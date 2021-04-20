@@ -18,7 +18,7 @@ TEST_CASE("UTF8 error checking", "[utf8]") {
 	test_valid_str(a, "a");
 	test_valid_str(a, "\xc3\xb1");
 	test_valid_str(a, "\xE2\x82\xA1");
-	test_valid_str(a, "\xF0\x9F\xA6\x86"); // a duck!
+	test_valid_str(a, "\xF0\x9F\xA6\x86");
 	test_valid_str(a, "\xf0\x90\x8c\xbc");
 
 	REQUIRE_THROWS(a.SetValue(0, Value("\xc3\x28")));
