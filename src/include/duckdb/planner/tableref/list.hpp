@@ -1,0 +1,8 @@
+#include "guinsoodb/planner/tableref/bound_basetableref.hpp"
+#include "guinsoodb/planner/tableref/bound_crossproductref.hpp"
+#include "guinsoodb/planner/tableref/bound_cteref.hpp"
+#include "guinsoodb/planner/tableref/bound_dummytableref.hpp"
+#include "guinsoodb/planner/tableref/bound_expressionlistref.hpp"
+#include "guinsoodb/planner/tableref/bound_joinref.hpp"
+#include "guinsoodb/planner/tableref/bound_subqueryref.hpp"
+#include "guinsoodb/planner/tableref/bound_table_function.hpp"

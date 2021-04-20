@@ -1,0 +1,33 @@
+add_subdirectory(crypto)
+add_subdirectory(enums)
+add_subdirectory(operator)
+add_subdirectory(serializer)
+add_subdirectory(types)
+add_subdirectory(value_operations)
+add_subdirectory(vector_operations)
+
+add_library_unity(
+  guinsoodb_common
+  OBJECT
+  assert.cpp
+  bit_operations.cpp
+  constants.cpp
+  checksum.cpp
+  exception.cpp
+  exception_format_value.cpp
+  file_buffer.cpp
+  file_system.cpp
+  gzip_stream.cpp
+  limits.cpp
+  printer.cpp
+  progress_bar.cpp
+  serializer.cpp
+  string_util.cpp
+  symbols.cpp
+  tree_renderer.cpp
+  types.cpp
+  fstream_util.cpp
+  cycle_counter.cpp)
+set(ALL_OBJECT_FILES
+    ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:guinsoodb_common>
+    PARENT_SCOPE)

@@ -1,0 +1,28 @@
+add_library_unity(
+  guinsoodb_common_types
+  OBJECT
+  blob.cpp
+  cast_helpers.cpp
+  chunk_collection.cpp
+  data_chunk.cpp
+  date.cpp
+  decimal.cpp
+  hash.cpp
+  hugeint.cpp
+  hyperloglog.cpp
+  interval.cpp
+  null_value.cpp
+  row_chunk.cpp
+  selection_vector.cpp
+  string_heap.cpp
+  string_type.cpp
+  timestamp.cpp
+  time.cpp
+  validity_mask.cpp
+  value.cpp
+  vector_buffer.cpp
+  vector.cpp
+  vector_constants.cpp)
+set(ALL_OBJECT_FILES
+    ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:guinsoodb_common_types>
+    PARENT_SCOPE)

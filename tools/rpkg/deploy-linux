@@ -1,0 +1,3 @@
+python ../upload-s3.py rstats/src/contrib guinsoodb_*.tar.gz PACKAGES*
+python ../upload-s3.py rstats guinsoodb_*.tar.gz
+python3 ../../scripts/asset-upload.py guinsoodb_r_src.tar.gz=guinsoodb_*.tar.gz

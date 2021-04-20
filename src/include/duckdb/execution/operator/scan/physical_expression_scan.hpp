@@ -1,0 +1,33 @@
+//===----------------------------------------------------------------------===//
+//                         GuinsooDB
+//
+// guinsoodb/execution/operator/scan/physical_expression_scan.hpp
+//
+//
+//===----------------------------------------------------------------------===//
+
+#pragma once
+
+#include "guinsoodb/common/types/chunk_collection.hpp"
+#include "guinsoodb/execution/physical_operator.hpp"
+
+namespace guinsoodb {
+
+//! The PhysicalExpressionScan scans a set of expressions
+class PhysicalExpressionScan : public PhysicalOperator {
+public:
+	PhysicalExpressionScan(vector<LogicalType> types, vector<vector<unique_ptr<Expression>>> expressions,
+	                       idx_t estimated_cardinality)
+	    : PhysicalOperator(PhysicalOperatorType::EXPRESSION_SCAN, move(types), estimated_cardinality),
+	      expressions(move(expressions)) {
+	}
+
+	//! The set of expressions to scan
+	vector<vector<unique_ptr<Expression>>> expressions;
+
+public:
+	void GetChunkInternal(ExecutionContext &context, DataChunk &chunk, PhysicalOperatorState *state) override;
+	unique_ptr<PhysicalOperatorState> GetOperatorState() override;
+};
+
+} // namespace guinsoodb

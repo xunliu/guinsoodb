@@ -1,0 +1,30 @@
+//===----------------------------------------------------------------------===//
+//                         GuinsooDB
+//
+// guinsoodb/planner/parsed_data/bound_create_function_info.hpp
+//
+//
+//===----------------------------------------------------------------------===//
+
+#pragma once
+
+#include "guinsoodb/parser/parsed_data/create_macro_info.hpp"
+
+namespace guinsoodb {
+class CatalogEntry;
+
+struct BoundCreateFunctionInfo {
+	explicit BoundCreateFunctionInfo(unique_ptr<CreateInfo> base) : base(move(base)) {
+	}
+
+	//! The schema to create the table in
+	SchemaCatalogEntry *schema;
+	//! The base CreateInfo object
+	unique_ptr<CreateInfo> base;
+
+	CreateMacroInfo &Base() {
+		return (CreateMacroInfo &)*base;
+	}
+};
+
+} // namespace guinsoodb

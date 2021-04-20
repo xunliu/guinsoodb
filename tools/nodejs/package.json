@@ -1,0 +1,46 @@
+{
+  "name": "guinsoodb",
+  "main": "./lib/guinsoodb.js",
+  "version": "0.2.4",
+  "description": "GuinsooDB node.js API",
+  "gypfile": true,
+  "dependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.0",
+    "node-addon-api": "*",
+    "node-gyp": "^7.1.2"
+  },
+  "binary": {
+    "module_name": "guinsoodb",
+    "module_path": "./lib/binding/",
+    "host": "https://guinsoodb-node.s3.amazonaws.com"
+  },
+  "scripts": {
+    "install": "node-pre-gyp install --fallback-to-build",
+    "pretest": "node test/support/createdb.js",
+    "test": "mocha -R spec --timeout 480000",
+    "pack": "node-pre-gyp package"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "devDependencies": {
+    "mocha": "^8.3.0",
+    "aws-sdk": "^2.790.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cwida/guinsoodb.git"
+  },
+  "keywords": [
+    "database",
+    "sql",
+    "guinsoodb"
+  ],
+  "author": "Hannes Mühleisen",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/cwida/guinsoodb/issues"
+  },
+  "homepage": "https://www.guinsoodb.org"
+}

@@ -1,0 +1,8 @@
+build-*
+node_modules
+src/guinsoodb.cpp
+src/guinsoodb.hpp
+lib/binding
+package-lock.json
+test/support/big.db*
+test/tmp/*

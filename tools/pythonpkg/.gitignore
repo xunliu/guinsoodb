@@ -1,0 +1,14 @@
+dist
+guinsoodb.egg-info
+build
+.eggs
+.pytest_cache
+/guinsoodb_tarball/
+guinsoodb.cpp
+guinsoodb.hpp
+parquet-extension.cpp
+parquet-extension.hpp
+guinsoodb/
+githash.list
+includes.list
+sources.list
