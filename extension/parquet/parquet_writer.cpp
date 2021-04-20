@@ -2,7 +2,7 @@
 #include "parquet_timestamp.hpp"
 
 #include "guinsoodb.hpp"
-#ifndef DUCKDB_AMALGAMATION
+#ifndef GUINSOODB_AMALGAMATION
 #include "guinsoodb/function/table_function.hpp"
 #include "guinsoodb/parser/parsed_data/create_table_function_info.hpp"
 #include "guinsoodb/parser/parsed_data/create_copy_function_info.hpp"

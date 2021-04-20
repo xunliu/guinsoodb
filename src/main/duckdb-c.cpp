@@ -310,7 +310,7 @@ guinsoodb_state guinsoodb_query(guinsoodb_connection connection, const char *que
 
 static void guinsoodb_destroy_column(guinsoodb_column column, idx_t count) {
 	if (column.data) {
-		if (column.type == DUCKDB_TYPE_VARCHAR) {
+		if (column.type == GUINSOODB_TYPE_VARCHAR) {
 			// varchar, delete individual strings
 			auto data = (char **)column.data;
 			for (idx_t i = 0; i < count; i++) {
@@ -318,7 +318,7 @@ static void guinsoodb_destroy_column(guinsoodb_column column, idx_t count) {
 					free(data[i]);
 				}
 			}
-		} else if (column.type == DUCKDB_TYPE_BLOB) {
+		} else if (column.type == GUINSOODB_TYPE_BLOB) {
 			// blob, delete individual blobs
 			auto data = (guinsoodb_blob *)column.data;
 			for (idx_t i = 0; i < count; i++) {
@@ -482,67 +482,67 @@ void guinsoodb_destroy_prepare(guinsoodb_prepared_statement *prepared_statement)
 guinsoodb_type ConvertCPPTypeToC(LogicalType sql_type) {
 	switch (sql_type.id()) {
 	case LogicalTypeId::BOOLEAN:
-		return DUCKDB_TYPE_BOOLEAN;
+		return GUINSOODB_TYPE_BOOLEAN;
 	case LogicalTypeId::TINYINT:
-		return DUCKDB_TYPE_TINYINT;
+		return GUINSOODB_TYPE_TINYINT;
 	case LogicalTypeId::SMALLINT:
-		return DUCKDB_TYPE_SMALLINT;
+		return GUINSOODB_TYPE_SMALLINT;
 	case LogicalTypeId::INTEGER:
-		return DUCKDB_TYPE_INTEGER;
+		return GUINSOODB_TYPE_INTEGER;
 	case LogicalTypeId::BIGINT:
-		return DUCKDB_TYPE_BIGINT;
+		return GUINSOODB_TYPE_BIGINT;
 	case LogicalTypeId::HUGEINT:
-		return DUCKDB_TYPE_HUGEINT;
+		return GUINSOODB_TYPE_HUGEINT;
 	case LogicalTypeId::FLOAT:
-		return DUCKDB_TYPE_FLOAT;
+		return GUINSOODB_TYPE_FLOAT;
 	case LogicalTypeId::DOUBLE:
-		return DUCKDB_TYPE_DOUBLE;
+		return GUINSOODB_TYPE_DOUBLE;
 	case LogicalTypeId::TIMESTAMP:
-		return DUCKDB_TYPE_TIMESTAMP;
+		return GUINSOODB_TYPE_TIMESTAMP;
 	case LogicalTypeId::DATE:
-		return DUCKDB_TYPE_DATE;
+		return GUINSOODB_TYPE_DATE;
 	case LogicalTypeId::TIME:
-		return DUCKDB_TYPE_TIME;
+		return GUINSOODB_TYPE_TIME;
 	case LogicalTypeId::VARCHAR:
-		return DUCKDB_TYPE_VARCHAR;
+		return GUINSOODB_TYPE_VARCHAR;
 	case LogicalTypeId::BLOB:
-		return DUCKDB_TYPE_BLOB;
+		return GUINSOODB_TYPE_BLOB;
 	case LogicalTypeId::INTERVAL:
-		return DUCKDB_TYPE_INTERVAL;
+		return GUINSOODB_TYPE_INTERVAL;
 	default:
-		return DUCKDB_TYPE_INVALID;
+		return GUINSOODB_TYPE_INVALID;
 	}
 }
 
 idx_t GetCTypeSize(guinsoodb_type type) {
 	switch (type) {
-	case DUCKDB_TYPE_BOOLEAN:
+	case GUINSOODB_TYPE_BOOLEAN:
 		return sizeof(bool);
-	case DUCKDB_TYPE_TINYINT:
+	case GUINSOODB_TYPE_TINYINT:
 		return sizeof(int8_t);
-	case DUCKDB_TYPE_SMALLINT:
+	case GUINSOODB_TYPE_SMALLINT:
 		return sizeof(int16_t);
-	case DUCKDB_TYPE_INTEGER:
+	case GUINSOODB_TYPE_INTEGER:
 		return sizeof(int32_t);
-	case DUCKDB_TYPE_BIGINT:
+	case GUINSOODB_TYPE_BIGINT:
 		return sizeof(int64_t);
-	case DUCKDB_TYPE_HUGEINT:
+	case GUINSOODB_TYPE_HUGEINT:
 		return sizeof(guinsoodb_hugeint);
-	case DUCKDB_TYPE_FLOAT:
+	case GUINSOODB_TYPE_FLOAT:
 		return sizeof(float);
-	case DUCKDB_TYPE_DOUBLE:
+	case GUINSOODB_TYPE_DOUBLE:
 		return sizeof(double);
-	case DUCKDB_TYPE_DATE:
+	case GUINSOODB_TYPE_DATE:
 		return sizeof(guinsoodb_date);
-	case DUCKDB_TYPE_TIME:
+	case GUINSOODB_TYPE_TIME:
 		return sizeof(guinsoodb_time);
-	case DUCKDB_TYPE_TIMESTAMP:
+	case GUINSOODB_TYPE_TIMESTAMP:
 		return sizeof(guinsoodb_timestamp);
-	case DUCKDB_TYPE_VARCHAR:
+	case GUINSOODB_TYPE_VARCHAR:
 		return sizeof(const char *);
-	case DUCKDB_TYPE_BLOB:
+	case GUINSOODB_TYPE_BLOB:
 		return sizeof(guinsoodb_blob);
-	case DUCKDB_TYPE_INTERVAL:
+	case GUINSOODB_TYPE_INTERVAL:
 		return sizeof(guinsoodb_interval);
 	default:
 		// unsupported type
@@ -568,41 +568,41 @@ static Value GetCValue(guinsoodb_result *result, idx_t col, idx_t row) {
 		return Value();
 	}
 	switch (result->columns[col].type) {
-	case DUCKDB_TYPE_BOOLEAN:
+	case GUINSOODB_TYPE_BOOLEAN:
 		return Value::BOOLEAN(UnsafeFetch<bool>(result, col, row));
-	case DUCKDB_TYPE_TINYINT:
+	case GUINSOODB_TYPE_TINYINT:
 		return Value::TINYINT(UnsafeFetch<int8_t>(result, col, row));
-	case DUCKDB_TYPE_SMALLINT:
+	case GUINSOODB_TYPE_SMALLINT:
 		return Value::SMALLINT(UnsafeFetch<int16_t>(result, col, row));
-	case DUCKDB_TYPE_INTEGER:
+	case GUINSOODB_TYPE_INTEGER:
 		return Value::INTEGER(UnsafeFetch<int32_t>(result, col, row));
-	case DUCKDB_TYPE_BIGINT:
+	case GUINSOODB_TYPE_BIGINT:
 		return Value::BIGINT(UnsafeFetch<int64_t>(result, col, row));
-	case DUCKDB_TYPE_FLOAT:
+	case GUINSOODB_TYPE_FLOAT:
 		return Value(UnsafeFetch<float>(result, col, row));
-	case DUCKDB_TYPE_DOUBLE:
+	case GUINSOODB_TYPE_DOUBLE:
 		return Value(UnsafeFetch<double>(result, col, row));
-	case DUCKDB_TYPE_DATE: {
+	case GUINSOODB_TYPE_DATE: {
 		auto date = UnsafeFetch<guinsoodb_date>(result, col, row);
 		return Value::DATE(date.year, date.month, date.day);
 	}
-	case DUCKDB_TYPE_TIME: {
+	case GUINSOODB_TYPE_TIME: {
 		auto time = UnsafeFetch<guinsoodb_time>(result, col, row);
 		return Value::TIME(time.hour, time.min, time.sec, time.micros);
 	}
-	case DUCKDB_TYPE_TIMESTAMP: {
+	case GUINSOODB_TYPE_TIMESTAMP: {
 		auto timestamp = UnsafeFetch<guinsoodb_timestamp>(result, col, row);
 		return Value::TIMESTAMP(timestamp.date.year, timestamp.date.month, timestamp.date.day, timestamp.time.hour,
 		                        timestamp.time.min, timestamp.time.sec, timestamp.time.micros);
 	}
-	case DUCKDB_TYPE_HUGEINT: {
+	case GUINSOODB_TYPE_HUGEINT: {
 		hugeint_t val;
 		auto hugeint = UnsafeFetch<guinsoodb_hugeint>(result, col, row);
 		val.lower = hugeint.lower;
 		val.upper = hugeint.upper;
 		return Value::HUGEINT(val);
 	}
-	case DUCKDB_TYPE_INTERVAL: {
+	case GUINSOODB_TYPE_INTERVAL: {
 		interval_t val;
 		auto interval = UnsafeFetch<guinsoodb_interval>(result, col, row);
 		val.days = interval.days;
@@ -610,9 +610,9 @@ static Value GetCValue(guinsoodb_result *result, idx_t col, idx_t row) {
 		val.micros = interval.micros;
 		return Value::INTERVAL(val);
 	}
-	case DUCKDB_TYPE_VARCHAR:
+	case GUINSOODB_TYPE_VARCHAR:
 		return Value(string(UnsafeFetch<const char *>(result, col, row)));
-	case DUCKDB_TYPE_BLOB: {
+	case GUINSOODB_TYPE_BLOB: {
 		auto blob = UnsafeFetch<guinsoodb_blob>(result, col, row);
 		return Value::BLOB((const_data_ptr_t)blob.data, blob.size);
 	}

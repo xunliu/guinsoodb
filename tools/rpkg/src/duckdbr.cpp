@@ -313,7 +313,7 @@ static R_xlen_t guinsoodb_altrep_strings_length(SEXP x) {
 
 static Rboolean guinsoodb_altrep_strings_inspect(SEXP x, int pre, int deep, int pvec,
                                               void (*inspect_subtree)(SEXP, int, int, int)) {
-	Rprintf("DUCKDB_STRING_COLUMN %llu\n", guinsoodb_altrep_strings_length(x));
+	Rprintf("GUINSOODB_STRING_COLUMN %llu\n", guinsoodb_altrep_strings_length(x));
 	return TRUE;
 }
 

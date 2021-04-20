@@ -8,7 +8,7 @@ target_include_directories(
 set_target_properties(miniz PROPERTIES EXPORT_NAME guinsoodb_miniz)
 
 install(TARGETS miniz
-        EXPORT "${DUCKDB_EXPORT_SET}"
+        EXPORT "${GUINSOODB_EXPORT_SET}"
         LIBRARY DESTINATION "${INSTALL_LIB_DIR}"
         ARCHIVE DESTINATION "${INSTALL_LIB_DIR}")
 

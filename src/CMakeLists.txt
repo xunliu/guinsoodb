@@ -1,4 +1,4 @@
-add_definitions(-DDUCKDB)
+add_definitions(-DGUINSOODB)
 
 if(NOT MSVC)
   set(CMAKE_CXX_FLAGS_DEBUG
@@ -42,7 +42,7 @@ if(AMALGAMATION_BUILD)
 
 else()
 
-  add_definitions(-DDUCKDB_MAIN_LIBRARY)
+  add_definitions(-DGUINSOODB_MAIN_LIBRARY)
 
   add_subdirectory(optimizer)
   add_subdirectory(planner)
@@ -56,7 +56,7 @@ else()
   add_subdirectory(storage)
   add_subdirectory(transaction)
 
-  set(DUCKDB_LINK_LIBS
+  set(GUINSOODB_LINK_LIBS
       ${CMAKE_DL_LIBS}
       fmt
       pg_query
@@ -66,11 +66,11 @@ else()
       hyperloglog)
 
   add_library(guinsoodb SHARED ${ALL_OBJECT_FILES})
-  target_link_libraries(guinsoodb ${DUCKDB_LINK_LIBS})
+  target_link_libraries(guinsoodb ${GUINSOODB_LINK_LIBS})
   link_threads(guinsoodb)
 
   add_library(guinsoodb_static STATIC ${ALL_OBJECT_FILES})
-  target_link_libraries(guinsoodb_static ${DUCKDB_LINK_LIBS})
+  target_link_libraries(guinsoodb_static ${GUINSOODB_LINK_LIBS})
   link_threads(guinsoodb_static)
 
   target_include_directories(
@@ -121,9 +121,9 @@ if(BUILD_PYTHON OR BUILD_R)
     add_custom_target(
       guinsoodb_r ALL
       COMMAND
-        DUCKDB_R_BINDIR=${CMAKE_BINARY_DIR}
-        DUCKDB_R_CFLAGS=\"${ALL_COMPILE_FLAGS}\"
-        DUCKDB_R_LIBS=\"${guinsoodb_libs}\" R CMD INSTALL .
+        GUINSOODB_R_BINDIR=${CMAKE_BINARY_DIR}
+        GUINSOODB_R_CFLAGS=\"${ALL_COMPILE_FLAGS}\"
+        GUINSOODB_R_LIBS=\"${guinsoodb_libs}\" R CMD INSTALL .
       DEPENDS guinsoodb
       WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tools/rpkg
       COMMENT Build
@@ -134,6 +134,6 @@ endif()
 
 install(
   TARGETS guinsoodb guinsoodb_static
-  EXPORT "${DUCKDB_EXPORT_SET}"
+  EXPORT "${GUINSOODB_EXPORT_SET}"
   LIBRARY DESTINATION "${INSTALL_LIB_DIR}"
   ARCHIVE DESTINATION "${INSTALL_LIB_DIR}")

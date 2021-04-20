@@ -4,7 +4,7 @@
 #include "guinsoodb/main/client_context.hpp"
 #include "guinsoodb/main/database.hpp"
 
-#ifndef DUCKDB_NO_THREADS
+#ifndef GUINSOODB_NO_THREADS
 #include "concurrentqueue.h"
 #include "lightweightsemaphore.h"
 #include "guinsoodb/common/thread.hpp"
@@ -15,7 +15,7 @@
 namespace guinsoodb {
 
 struct SchedulerThread {
-#ifndef DUCKDB_NO_THREADS
+#ifndef GUINSOODB_NO_THREADS
 	explicit SchedulerThread(unique_ptr<thread> thread_p) : internal_thread(move(thread_p)) {
 	}
 
@@ -23,7 +23,7 @@ struct SchedulerThread {
 #endif
 };
 
-#ifndef DUCKDB_NO_THREADS
+#ifndef GUINSOODB_NO_THREADS
 typedef guinsoodb_moodycamel::ConcurrentQueue<unique_ptr<Task>> concurrent_queue_t;
 typedef guinsoodb_moodycamel::LightweightSemaphore lightweight_semaphore_t;
 
@@ -97,7 +97,7 @@ TaskScheduler::TaskScheduler() : queue(make_unique<ConcurrentQueue>()) {
 }
 
 TaskScheduler::~TaskScheduler() {
-#ifndef DUCKDB_NO_THREADS
+#ifndef GUINSOODB_NO_THREADS
 	SetThreadsInternal(1);
 #endif
 }
@@ -121,7 +121,7 @@ bool TaskScheduler::GetTaskFromProducer(ProducerToken &token, unique_ptr<Task> &
 }
 
 void TaskScheduler::ExecuteForever(bool *marker) {
-#ifndef DUCKDB_NO_THREADS
+#ifndef GUINSOODB_NO_THREADS
 	unique_ptr<Task> task;
 	// loop until the marker is set to false
 	while (*marker) {
@@ -137,7 +137,7 @@ void TaskScheduler::ExecuteForever(bool *marker) {
 #endif
 }
 
-#ifndef DUCKDB_NO_THREADS
+#ifndef GUINSOODB_NO_THREADS
 static void ThreadExecuteTasks(TaskScheduler *scheduler, bool *marker) {
 	scheduler->ExecuteForever(marker);
 }
@@ -148,7 +148,7 @@ int32_t TaskScheduler::NumberOfThreads() {
 }
 
 void TaskScheduler::SetThreads(int32_t n) {
-#ifndef DUCKDB_NO_THREADS
+#ifndef GUINSOODB_NO_THREADS
 	if (n < 1) {
 		throw SyntaxException("Must have at least 1 thread!");
 	}
@@ -159,7 +159,7 @@ void TaskScheduler::SetThreads(int32_t n) {
 }
 
 void TaskScheduler::SetThreadsInternal(int32_t n) {
-#ifndef DUCKDB_NO_THREADS
+#ifndef GUINSOODB_NO_THREADS
 	if (threads.size() == idx_t(n - 1)) {
 		return;
 	}

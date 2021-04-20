@@ -17,14 +17,14 @@ def open_utf8(fpath, flags):
 extension_list = ""
 for ext in extensions:
     extension_list += ' -DBUILD_{}_EXTENSION'.format(ext.upper())
-    extension_list += " -DDUCKDB_BUILD_LIBRARY"
+    extension_list += " -DGUINSOODB_BUILD_LIBRARY"
     
 
 # check if we are doing a build from an existing GuinsooDB installation
-if 'DUCKDB_R_BINDIR' in os.environ and 'DUCKDB_R_CFLAGS' in os.environ and 'DUCKDB_R_LIBS' in os.environ:
-    existing_guinsoodb_dir = os.environ['DUCKDB_R_BINDIR']
-    compile_flags = os.environ['DUCKDB_R_CFLAGS'].replace('\\', '').replace('  ', ' ')
-    libraries = [x for x in os.environ['DUCKDB_R_LIBS'].split(' ') if len(x) > 0]
+if 'GUINSOODB_R_BINDIR' in os.environ and 'GUINSOODB_R_CFLAGS' in os.environ and 'GUINSOODB_R_LIBS' in os.environ:
+    existing_guinsoodb_dir = os.environ['GUINSOODB_R_BINDIR']
+    compile_flags = os.environ['GUINSOODB_R_CFLAGS'].replace('\\', '').replace('  ', ' ')
+    libraries = [x for x in os.environ['GUINSOODB_R_LIBS'].split(' ') if len(x) > 0]
 
     # use existing installation: set up Makevars
     with open_utf8(os.path.join('src', 'Makevars.in'), 'r') as f:
@@ -60,7 +60,7 @@ if not os.path.isfile(os.path.join('..', '..', 'scripts', 'amalgamation.py')):
 
 target_dir = os.path.join(os.getcwd(), 'src', 'guinsoodb')
 
-linenr = bool(os.getenv("DUCKDB_R_LINENR", ""))
+linenr = bool(os.getenv("GUINSOODB_R_LINENR", ""))
 
 (source_list, include_list, original_sources) = package_build.build_package(target_dir, extensions, linenr)
 

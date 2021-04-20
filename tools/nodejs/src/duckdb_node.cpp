@@ -14,8 +14,8 @@ Napi::Object RegisterModule(Napi::Env env, Napi::Object exports) {
 	node_guinsoodb::Statement::Init(env, exports);
 
 	exports.DefineProperties({
-	    DEFINE_CONSTANT_INTEGER(exports, node_guinsoodb::Database::DUCKDB_NODEJS_ERROR, ERROR) DEFINE_CONSTANT_INTEGER(
-	        exports, node_guinsoodb::Database::DUCKDB_NODEJS_READONLY, OPEN_READONLY) // same as SQLite
+	    DEFINE_CONSTANT_INTEGER(exports, node_guinsoodb::Database::GUINSOODB_NODEJS_ERROR, ERROR) DEFINE_CONSTANT_INTEGER(
+	        exports, node_guinsoodb::Database::GUINSOODB_NODEJS_READONLY, OPEN_READONLY) // same as SQLite
 	    DEFINE_CONSTANT_INTEGER(exports, 0, OPEN_READWRITE)                        // ignored
 	    DEFINE_CONSTANT_INTEGER(exports, 0, OPEN_CREATE)                           // ignored
 	    DEFINE_CONSTANT_INTEGER(exports, 0, OPEN_FULLMUTEX)                        // ignored

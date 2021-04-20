@@ -23,8 +23,8 @@ struct ValidityData {
 	static constexpr const validity_t MAX_ENTRY = ~validity_t(0);
 
 public:
-	DUCKDB_API explicit ValidityData(idx_t count);
-	DUCKDB_API ValidityData(const ValidityMask &original, idx_t count);
+	GUINSOODB_API explicit ValidityData(idx_t count);
+	GUINSOODB_API ValidityData(const ValidityMask &original, idx_t count);
 
 	unique_ptr<validity_t[]> owned_data;
 

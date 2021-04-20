@@ -45,11 +45,11 @@ void PragmaVersion::RegisterFunction(BuiltinFunctions &set) {
 }
 
 const char *GuinsooDB::SourceID() {
-	return DUCKDB_SOURCE_ID;
+	return GUINSOODB_SOURCE_ID;
 }
 
 const char *GuinsooDB::LibraryVersion() {
-	return DUCKDB_VERSION;
+	return GUINSOODB_VERSION;
 }
 
 } // namespace guinsoodb

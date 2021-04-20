@@ -12,7 +12,7 @@
 
 #include "guinsoodb_benchmark.hpp"
 
-#define DUCKDB_BENCHMARK(NAME, GROUP)                                                                                  \
+#define GUINSOODB_BENCHMARK(NAME, GROUP)                                                                                  \
 	class NAME##Benchmark : public GuinsooDBBenchmark {                                                                   \
 		NAME##Benchmark(bool register_benchmark) : GuinsooDBBenchmark(register_benchmark, "" #NAME, GROUP) {              \
 		}                                                                                                              \

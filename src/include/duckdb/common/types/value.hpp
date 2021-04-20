@@ -137,17 +137,17 @@ public:
 	}
 
 	//! Convert this value to a string
-	DUCKDB_API string ToString() const;
+	GUINSOODB_API string ToString() const;
 
 	//! Cast this value to another type
-	DUCKDB_API Value CastAs(const LogicalType &target_type, bool strict = false) const;
+	GUINSOODB_API Value CastAs(const LogicalType &target_type, bool strict = false) const;
 	//! Tries to cast value to another type, throws exception if its not possible
-	DUCKDB_API bool TryCastAs(const LogicalType &target_type, bool strict = false);
+	GUINSOODB_API bool TryCastAs(const LogicalType &target_type, bool strict = false);
 
 	//! Serializes a Value to a stand-alone binary blob
-	DUCKDB_API void Serialize(Serializer &serializer);
+	GUINSOODB_API void Serialize(Serializer &serializer);
 	//! Deserializes a Value from a blob
-	DUCKDB_API static Value Deserialize(Deserializer &source);
+	GUINSOODB_API static Value Deserialize(Deserializer &source);
 
 	//===--------------------------------------------------------------------===//
 	// Numeric Operators
@@ -243,91 +243,91 @@ private:
 };
 
 template <>
-Value DUCKDB_API Value::CreateValue(bool value);
+Value GUINSOODB_API Value::CreateValue(bool value);
 template <>
-Value DUCKDB_API Value::CreateValue(uint8_t value);
+Value GUINSOODB_API Value::CreateValue(uint8_t value);
 template <>
-Value DUCKDB_API Value::CreateValue(uint16_t value);
+Value GUINSOODB_API Value::CreateValue(uint16_t value);
 template <>
-Value DUCKDB_API Value::CreateValue(uint32_t value);
+Value GUINSOODB_API Value::CreateValue(uint32_t value);
 template <>
-Value DUCKDB_API Value::CreateValue(uint64_t value);
+Value GUINSOODB_API Value::CreateValue(uint64_t value);
 template <>
-Value DUCKDB_API Value::CreateValue(int8_t value);
+Value GUINSOODB_API Value::CreateValue(int8_t value);
 template <>
-Value DUCKDB_API Value::CreateValue(int16_t value);
+Value GUINSOODB_API Value::CreateValue(int16_t value);
 template <>
-Value DUCKDB_API Value::CreateValue(int32_t value);
+Value GUINSOODB_API Value::CreateValue(int32_t value);
 template <>
-Value DUCKDB_API Value::CreateValue(int64_t value);
+Value GUINSOODB_API Value::CreateValue(int64_t value);
 template <>
-Value DUCKDB_API Value::CreateValue(hugeint_t value);
+Value GUINSOODB_API Value::CreateValue(hugeint_t value);
 template <>
-Value DUCKDB_API Value::CreateValue(const char *value);
+Value GUINSOODB_API Value::CreateValue(const char *value);
 template <>
-Value DUCKDB_API Value::CreateValue(string value);
+Value GUINSOODB_API Value::CreateValue(string value);
 template <>
-Value DUCKDB_API Value::CreateValue(string_t value);
+Value GUINSOODB_API Value::CreateValue(string_t value);
 template <>
-Value DUCKDB_API Value::CreateValue(float value);
+Value GUINSOODB_API Value::CreateValue(float value);
 template <>
-Value DUCKDB_API Value::CreateValue(double value);
+Value GUINSOODB_API Value::CreateValue(double value);
 template <>
-Value DUCKDB_API Value::CreateValue(Value value);
+Value GUINSOODB_API Value::CreateValue(Value value);
 
 template <>
-DUCKDB_API bool Value::GetValue() const;
+GUINSOODB_API bool Value::GetValue() const;
 template <>
-DUCKDB_API int8_t Value::GetValue() const;
+GUINSOODB_API int8_t Value::GetValue() const;
 template <>
-DUCKDB_API int16_t Value::GetValue() const;
+GUINSOODB_API int16_t Value::GetValue() const;
 template <>
-DUCKDB_API int32_t Value::GetValue() const;
+GUINSOODB_API int32_t Value::GetValue() const;
 template <>
-DUCKDB_API int64_t Value::GetValue() const;
+GUINSOODB_API int64_t Value::GetValue() const;
 template <>
-DUCKDB_API uint8_t Value::GetValue() const;
+GUINSOODB_API uint8_t Value::GetValue() const;
 template <>
-DUCKDB_API uint16_t Value::GetValue() const;
+GUINSOODB_API uint16_t Value::GetValue() const;
 template <>
-DUCKDB_API hugeint_t Value::GetValue() const;
+GUINSOODB_API hugeint_t Value::GetValue() const;
 template <>
-DUCKDB_API string Value::GetValue() const;
+GUINSOODB_API string Value::GetValue() const;
 template <>
-DUCKDB_API float Value::GetValue() const;
+GUINSOODB_API float Value::GetValue() const;
 template <>
-DUCKDB_API double Value::GetValue() const;
+GUINSOODB_API double Value::GetValue() const;
 template <>
-DUCKDB_API uintptr_t Value::GetValue() const;
+GUINSOODB_API uintptr_t Value::GetValue() const;
 
 template <>
-DUCKDB_API int8_t &Value::GetValueUnsafe();
+GUINSOODB_API int8_t &Value::GetValueUnsafe();
 template <>
-DUCKDB_API int16_t &Value::GetValueUnsafe();
+GUINSOODB_API int16_t &Value::GetValueUnsafe();
 template <>
-DUCKDB_API int32_t &Value::GetValueUnsafe();
+GUINSOODB_API int32_t &Value::GetValueUnsafe();
 template <>
-DUCKDB_API int64_t &Value::GetValueUnsafe();
+GUINSOODB_API int64_t &Value::GetValueUnsafe();
 template <>
-DUCKDB_API hugeint_t &Value::GetValueUnsafe();
+GUINSOODB_API hugeint_t &Value::GetValueUnsafe();
 template <>
-DUCKDB_API uint8_t &Value::GetValueUnsafe();
+GUINSOODB_API uint8_t &Value::GetValueUnsafe();
 template <>
-DUCKDB_API uint16_t &Value::GetValueUnsafe();
+GUINSOODB_API uint16_t &Value::GetValueUnsafe();
 template <>
-DUCKDB_API uint32_t &Value::GetValueUnsafe();
+GUINSOODB_API uint32_t &Value::GetValueUnsafe();
 template <>
-DUCKDB_API uint64_t &Value::GetValueUnsafe();
+GUINSOODB_API uint64_t &Value::GetValueUnsafe();
 template <>
-DUCKDB_API string &Value::GetValueUnsafe();
+GUINSOODB_API string &Value::GetValueUnsafe();
 template <>
-DUCKDB_API float &Value::GetValueUnsafe();
+GUINSOODB_API float &Value::GetValueUnsafe();
 template <>
-DUCKDB_API double &Value::GetValueUnsafe();
+GUINSOODB_API double &Value::GetValueUnsafe();
 
 template <>
-DUCKDB_API bool Value::IsValid(float value);
+GUINSOODB_API bool Value::IsValid(float value);
 template <>
-DUCKDB_API bool Value::IsValid(double value);
+GUINSOODB_API bool Value::IsValid(double value);
 
 } // namespace guinsoodb

@@ -31,7 +31,7 @@ else:
     toolchain_args = ['-std=c++11', '-g0']
     if 'DUCKDEBUG' in os.environ:
         toolchain_args = ['-std=c++11', '-Wall', '-O0', '-g']
-if 'DUCKDB_INSTALL_USER' in os.environ and 'install' in sys.argv:
+if 'GUINSOODB_INSTALL_USER' in os.environ and 'install' in sys.argv:
     sys.argv.append('--user')
 
 existing_guinsoodb_dir = ''
@@ -56,7 +56,7 @@ if platform.system() == 'Darwin':
     toolchain_args.extend(['-stdlib=libc++', '-mmacosx-version-min=10.7'])
 
 if platform.system() == 'Windows':
-    toolchain_args.extend(['-DDUCKDB_BUILD_LIBRARY'])
+    toolchain_args.extend(['-DGUINSOODB_BUILD_LIBRARY'])
 
 for ext in extensions:
     toolchain_args.extend(['-DBUILD_{}_EXTENSION'.format(ext.upper())])

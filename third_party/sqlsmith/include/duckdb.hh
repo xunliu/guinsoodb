@@ -1,8 +1,8 @@
 /// @file
 /// @brief schema and dut classes for GuinsooDB
 
-#ifndef DUCKDB_HH
-#define DUCKDB_HH
+#ifndef GUINSOODB_HH
+#define GUINSOODB_HH
 
 #include "guinsoodb.hpp"
 

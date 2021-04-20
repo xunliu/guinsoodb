@@ -1,6 +1,6 @@
 add_subdirectory(relation)
 
-set(DUCKDB_MAIN_FILES
+set(GUINSOODB_MAIN_FILES
     appender.cpp
     client_context.cpp
     connection.cpp
@@ -14,10 +14,10 @@ set(DUCKDB_MAIN_FILES
     stream_query_result.cpp)
 
 if(NOT CLANG_TIDY)
-  set(DUCKDB_MAIN_FILES ${DUCKDB_MAIN_FILES} guinsoodb-c.cpp)
+  set(GUINSOODB_MAIN_FILES ${GUINSOODB_MAIN_FILES} guinsoodb-c.cpp)
 endif()
 
-add_library_unity(guinsoodb_main OBJECT ${DUCKDB_MAIN_FILES})
+add_library_unity(guinsoodb_main OBJECT ${GUINSOODB_MAIN_FILES})
 set(ALL_OBJECT_FILES
     ${ALL_OBJECT_FILES} $<TARGET_OBJECTS:guinsoodb_main>
     PARENT_SCOPE)

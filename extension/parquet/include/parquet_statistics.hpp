@@ -1,7 +1,7 @@
 #pragma once
 
 #include "guinsoodb.hpp"
-#ifndef DUCKDB_AMALGAMATION
+#ifndef GUINSOODB_AMALGAMATION
 #include "guinsoodb/storage/statistics/base_statistics.hpp"
 #endif
 #include "parquet_types.h"

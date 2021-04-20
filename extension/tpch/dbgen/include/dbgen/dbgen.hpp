@@ -10,7 +10,7 @@
 #pragma once
 
 #include "guinsoodb.hpp"
-#ifndef DUCKDB_AMALGAMATION
+#ifndef GUINSOODB_AMALGAMATION
 #include "guinsoodb/catalog/catalog.hpp"
 #include "guinsoodb/common/types/data_chunk.hpp"
 #endif

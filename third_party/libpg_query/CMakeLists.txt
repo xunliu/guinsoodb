@@ -22,7 +22,7 @@ target_include_directories(
 set_target_properties(pg_query PROPERTIES EXPORT_NAME guinsoodb_pg_query)
 
 install(TARGETS pg_query
-        EXPORT "${DUCKDB_EXPORT_SET}"
+        EXPORT "${GUINSOODB_EXPORT_SET}"
         LIBRARY DESTINATION "${INSTALL_LIB_DIR}"
         ARCHIVE DESTINATION "${INSTALL_LIB_DIR}")
 

@@ -8,7 +8,7 @@ using namespace guinsoodb;
 
 #define CAST_COUNT 10000000
 
-DUCKDB_BENCHMARK(CastDateToString, "[cast]")
+GUINSOODB_BENCHMARK(CastDateToString, "[cast]")
 void Load(GuinsooDBBenchmarkState *state) override {
 	std::uniform_int_distribution<> year_dist(1990, 2010), day_dist(1, 28), month_dist(1, 12);
 	std::mt19937 gen;
@@ -35,7 +35,7 @@ string BenchmarkInfo() override {
 }
 FINISH_BENCHMARK(CastDateToString)
 
-DUCKDB_BENCHMARK(CastTimeToString, "[cast]")
+GUINSOODB_BENCHMARK(CastTimeToString, "[cast]")
 void Load(GuinsooDBBenchmarkState *state) override {
 	std::uniform_int_distribution<> hour_dist(0, 23), min_dist(0, 59);
 	std::mt19937 gen;
@@ -62,7 +62,7 @@ string BenchmarkInfo() override {
 }
 FINISH_BENCHMARK(CastTimeToString)
 
-DUCKDB_BENCHMARK(CastTimestampToString, "[cast]")
+GUINSOODB_BENCHMARK(CastTimestampToString, "[cast]")
 void Load(GuinsooDBBenchmarkState *state) override {
 	std::uniform_int_distribution<> year_dist(1990, 2010), day_dist(1, 28), month_dist(1, 12);
 	std::uniform_int_distribution<> hour_dist(0, 23), min_dist(0, 59);

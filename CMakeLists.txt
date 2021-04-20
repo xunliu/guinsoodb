@@ -37,7 +37,7 @@ endif()
 set(INSTALL_CMAKE_DIR
     ${DEF_INSTALL_CMAKE_DIR}
     CACHE PATH "Installation directory for CMake files")
-set(DUCKDB_EXPORT_SET "GuinsooDBExports")
+set(GUINSOODB_EXPORT_SET "GuinsooDBExports")
 
 # Make relative install paths absolute
 foreach(p LIB BIN INCLUDE CMAKE)
@@ -146,19 +146,19 @@ execute_process(
   OUTPUT_VARIABLE GIT_ITERATION
   OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-string(REGEX REPLACE "v([0-9]+).[0-9]+.[0-9]+" "\\1" DUCKDB_MAJOR_VERSION "${GIT_LAST_TAG}")
-string(REGEX REPLACE "v[0-9]+.([0-9]+).[0-9]+" "\\1" DUCKDB_MINOR_VERSION "${GIT_LAST_TAG}")
-string(REGEX REPLACE "v[0-9]+.[0-9]+.([0-9]+)" "\\1" DUCKDB_PATCH_VERSION "${GIT_LAST_TAG}")
-string(REGEX REPLACE ".*-([0-9]+)-.*" "\\1" DUCKDB_DEV_ITERATION "${GIT_ITERATION}")
+string(REGEX REPLACE "v([0-9]+).[0-9]+.[0-9]+" "\\1" GUINSOODB_MAJOR_VERSION "${GIT_LAST_TAG}")
+string(REGEX REPLACE "v[0-9]+.([0-9]+).[0-9]+" "\\1" GUINSOODB_MINOR_VERSION "${GIT_LAST_TAG}")
+string(REGEX REPLACE "v[0-9]+.[0-9]+.([0-9]+)" "\\1" GUINSOODB_PATCH_VERSION "${GIT_LAST_TAG}")
+string(REGEX REPLACE ".*-([0-9]+)-.*" "\\1" GUINSOODB_DEV_ITERATION "${GIT_ITERATION}")
 
-if(${DUCKDB_DEV_ITERATION} EQUAL 0)
+if(${GUINSOODB_DEV_ITERATION} EQUAL 0)
   # on a tag; directly use the version
-  set(DUCKDB_VERSION "${GIT_LAST_TAG}")
+  set(GUINSOODB_VERSION "${GIT_LAST_TAG}")
 else()
   # not on a tag, increment the patch version by one and add a -devX suffix
-  math(EXPR DUCKDB_PATCH_VERSION "${DUCKDB_PATCH_VERSION}+1")
+  math(EXPR GUINSOODB_PATCH_VERSION "${GUINSOODB_PATCH_VERSION}+1")
 
-  set(DUCKDB_VERSION "v${DUCKDB_MAJOR_VERSION}.${DUCKDB_MINOR_VERSION}.${DUCKDB_PATCH_VERSION}-dev${DUCKDB_DEV_ITERATION}")
+  set(GUINSOODB_VERSION "v${GUINSOODB_MAJOR_VERSION}.${GUINSOODB_MINOR_VERSION}.${GUINSOODB_PATCH_VERSION}-dev${GUINSOODB_DEV_ITERATION}")
 endif()
 
 option(AMALGAMATION_BUILD
@@ -211,11 +211,11 @@ endif()
 
 if(!ASSERT_EXCEPTION)
   set(CMAKE_CXX_FLAGS_DEBUG
-      "${CMAKE_CXX_FLAGS_DEBUG} -DDUCKDB_USE_STANDARD_ASSERT")
+      "${CMAKE_CXX_FLAGS_DEBUG} -DGUINSOODB_USE_STANDARD_ASSERT")
 endif()
 
 if(FORCE_ASSERT)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDUCKDB_FORCE_ASSERT")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGUINSOODB_FORCE_ASSERT")
 endif()
 
 if(NOT MSVC)
@@ -445,7 +445,7 @@ endfunction()
 
 if(${EXPORT_DLL_SYMBOLS})
   # For Windows DLL export symbols
-  add_definitions(-DDUCKDB_BUILD_LIBRARY)
+  add_definitions(-DGUINSOODB_BUILD_LIBRARY)
 endif()
 
 add_subdirectory(src)
@@ -467,9 +467,9 @@ if(NOT CLANG_TIDY)
 endif()
 
 # Write the export set for build and install tree
-install(EXPORT "${DUCKDB_EXPORT_SET}" DESTINATION "${INSTALL_CMAKE_DIR}")
-export(EXPORT "${DUCKDB_EXPORT_SET}"
-       FILE "${PROJECT_BINARY_DIR}/${DUCKDB_EXPORT_SET}.cmake")
+install(EXPORT "${GUINSOODB_EXPORT_SET}" DESTINATION "${INSTALL_CMAKE_DIR}")
+export(EXPORT "${GUINSOODB_EXPORT_SET}"
+       FILE "${PROJECT_BINARY_DIR}/${GUINSOODB_EXPORT_SET}.cmake")
 
 # Only write the cmake package configuration if the templates exist
 set(CMAKE_CONFIG_TEMPLATE "${CMAKE_SOURCE_DIR}/GuinsooDBConfig.cmake.in")

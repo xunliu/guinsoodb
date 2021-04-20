@@ -8,7 +8,7 @@
 
 #pragma once
 
-#ifndef DUCKDB_NO_THREADS
+#ifndef GUINSOODB_NO_THREADS
 #include <thread>
 #include <future>
 #endif
@@ -35,7 +35,7 @@ private:
 	const string PROGRESS_BAR_STRING = "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||";
 	static constexpr const idx_t PROGRESS_BAR_WIDTH = 60;
 	Executor *executor = nullptr;
-#ifndef DUCKDB_NO_THREADS
+#ifndef GUINSOODB_NO_THREADS
 	std::thread progress_bar_thread;
 	std::condition_variable c;
 	std::mutex m;
@@ -49,7 +49,7 @@ private:
 	//! Starts the Progress Bar Thread that prints the progress bar
 	void ProgressBarThread();
 
-#ifndef DUCKDB_NO_THREADS
+#ifndef GUINSOODB_NO_THREADS
 	template <class DURATION>
 	bool WaitFor(DURATION duration) {
 		std::unique_lock<std::mutex> l(m);

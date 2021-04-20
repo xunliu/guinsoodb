@@ -4,7 +4,7 @@
 
 using namespace guinsoodb;
 
-DUCKDB_BENCHMARK(SELECT1Memory, "[storage]")
+GUINSOODB_BENCHMARK(SELECT1Memory, "[storage]")
 void Load(GuinsooDBBenchmarkState *state) override {
 }
 void RunBenchmark(GuinsooDBBenchmarkState *state) override {
@@ -20,7 +20,7 @@ string BenchmarkInfo() override {
 }
 FINISH_BENCHMARK(SELECT1Memory)
 
-DUCKDB_BENCHMARK(SELECT1Disk, "[storage]")
+GUINSOODB_BENCHMARK(SELECT1Disk, "[storage]")
 void Load(GuinsooDBBenchmarkState *state) override {
 }
 void RunBenchmark(GuinsooDBBenchmarkState *state) override {

@@ -8,7 +8,7 @@
 #include <iostream>
 
 #include "guinsoodb.hpp"
-#ifndef DUCKDB_AMALGAMATION
+#ifndef GUINSOODB_AMALGAMATION
 #include "guinsoodb/common/types/chunk_collection.hpp"
 #endif
 

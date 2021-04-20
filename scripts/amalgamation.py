@@ -246,11 +246,11 @@ def generate_guinsoodb_hpp(header_file):
         hfile.write("*/\n\n")
 
         hfile.write("#pragma once\n")
-        hfile.write("#define DUCKDB_AMALGAMATION 1\n")
+        hfile.write("#define GUINSOODB_AMALGAMATION 1\n")
         if extended_amalgamation:
-            hfile.write("#define DUCKDB_AMALGAMATION_EXTENDED 1\n")
-        hfile.write("#define DUCKDB_SOURCE_ID \"%s\"\n" % git_commit_hash())
-        hfile.write("#define DUCKDB_VERSION \"%s\"\n" % git_dev_version())
+            hfile.write("#define GUINSOODB_AMALGAMATION_EXTENDED 1\n")
+        hfile.write("#define GUINSOODB_SOURCE_ID \"%s\"\n" % git_commit_hash())
+        hfile.write("#define GUINSOODB_VERSION \"%s\"\n" % git_dev_version())
         for fpath in main_header_files:
             hfile.write(write_file(fpath))
 
@@ -267,7 +267,7 @@ def generate_amalgamation(source_file, header_file):
     with open_utf8(temp_source, 'w+') as sfile:
         header_file_name = header_file.split(os.sep)[-1]
         sfile.write('#include "' + header_file_name + '"\n\n')
-        sfile.write("#ifndef DUCKDB_AMALGAMATION\n#error header mismatch\n#endif\n\n")
+        sfile.write("#ifndef GUINSOODB_AMALGAMATION\n#error header mismatch\n#endif\n\n")
         for compile_dir in compile_directories:
             sfile.write(write_dir(compile_dir))
         # for windows we write file_system.cpp last
@@ -457,7 +457,7 @@ def generate_amalgamation_splits(source_file, header_file, nsplits):
             write_license(f)
             f.write('#include "%s"\n#include "%s"' % (header_file_name, internal_header_file_name))
             f.write('''
-#ifndef DUCKDB_AMALGAMATION
+#ifndef GUINSOODB_AMALGAMATION
 #error header mismatch
 #endif
 ''')

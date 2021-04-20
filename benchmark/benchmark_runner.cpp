@@ -50,12 +50,12 @@ BenchmarkRunner::BenchmarkRunner() {
 void BenchmarkRunner::SaveDatabase(GuinsooDB &db, string name) {
 	auto &fs = db.GetFileSystem();
 	// check if the database directory exists; if not create it
-	if (!fs.DirectoryExists(DUCKDB_BENCHMARK_DIRECTORY)) {
-		fs.CreateDirectory(DUCKDB_BENCHMARK_DIRECTORY);
+	if (!fs.DirectoryExists(GUINSOODB_BENCHMARK_DIRECTORY)) {
+		fs.CreateDirectory(GUINSOODB_BENCHMARK_DIRECTORY);
 	}
 	Connection con(db);
 	auto result = con.Query(
-	    StringUtil::Format("EXPORT DATABASE '%s' (FORMAT CSV)", fs.JoinPath(DUCKDB_BENCHMARK_DIRECTORY, name)));
+	    StringUtil::Format("EXPORT DATABASE '%s' (FORMAT CSV)", fs.JoinPath(GUINSOODB_BENCHMARK_DIRECTORY, name)));
 	if (!result->success) {
 		throw Exception("Failed to save database: " + result->error);
 	}
@@ -63,10 +63,10 @@ void BenchmarkRunner::SaveDatabase(GuinsooDB &db, string name) {
 
 bool BenchmarkRunner::TryLoadDatabase(GuinsooDB &db, string name) {
 	auto &fs = db.GetFileSystem();
-	if (!fs.DirectoryExists(DUCKDB_BENCHMARK_DIRECTORY)) {
+	if (!fs.DirectoryExists(GUINSOODB_BENCHMARK_DIRECTORY)) {
 		return false;
 	}
-	string base_dir = fs.JoinPath(DUCKDB_BENCHMARK_DIRECTORY, name);
+	string base_dir = fs.JoinPath(GUINSOODB_BENCHMARK_DIRECTORY, name);
 	// check if the [name]/schema.sql file exists
 	if (!fs.FileExists(fs.JoinPath(base_dir, "schema.sql"))) {
 		return false;
@@ -326,7 +326,7 @@ void print_error_message(const ConfigurationError &error) {
 
 int main(int argc, char **argv) {
 	FileSystem fs;
-	fs.SetWorkingDirectory(DUCKDB_ROOT_DIRECTORY);
+	fs.SetWorkingDirectory(GUINSOODB_ROOT_DIRECTORY);
 	// load interpreted benchmarks before doing anything else
 	LoadInterpretedBenchmarks();
 	parse_arguments(argc, argv);

@@ -6,7 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef DUCKDB_NO_THREADS
+#ifndef GUINSOODB_NO_THREADS
 #include "concurrentqueue.h"
 #else
 

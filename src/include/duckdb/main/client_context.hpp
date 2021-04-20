@@ -41,8 +41,8 @@ class ClientContext : public std::enable_shared_from_this<ClientContext> {
 	friend class TransactionManager;
 
 public:
-	DUCKDB_API explicit ClientContext(shared_ptr<DatabaseInstance> db);
-	DUCKDB_API ~ClientContext();
+	GUINSOODB_API explicit ClientContext(shared_ptr<DatabaseInstance> db);
+	GUINSOODB_API ~ClientContext();
 	//! Query profiler
 	QueryProfiler profiler;
 	//! QueryProfiler History
@@ -90,67 +90,67 @@ public:
 	std::mt19937 random_engine;
 
 public:
-	DUCKDB_API Transaction &ActiveTransaction() {
+	GUINSOODB_API Transaction &ActiveTransaction() {
 		return transaction.ActiveTransaction();
 	}
 
 	//! Interrupt execution of a query
-	DUCKDB_API void Interrupt();
+	GUINSOODB_API void Interrupt();
 	//! Enable query profiling
-	DUCKDB_API void EnableProfiling();
+	GUINSOODB_API void EnableProfiling();
 	//! Disable query profiling
-	DUCKDB_API void DisableProfiling();
+	GUINSOODB_API void DisableProfiling();
 
 	//! Issue a query, returning a QueryResult. The QueryResult can be either a StreamQueryResult or a
 	//! MaterializedQueryResult. The StreamQueryResult will only be returned in the case of a successful SELECT
 	//! statement.
-	DUCKDB_API unique_ptr<QueryResult> Query(const string &query, bool allow_stream_result);
-	DUCKDB_API unique_ptr<QueryResult> Query(unique_ptr<SQLStatement> statement, bool allow_stream_result);
+	GUINSOODB_API unique_ptr<QueryResult> Query(const string &query, bool allow_stream_result);
+	GUINSOODB_API unique_ptr<QueryResult> Query(unique_ptr<SQLStatement> statement, bool allow_stream_result);
 	//! Fetch a query from the current result set (if any)
-	DUCKDB_API unique_ptr<DataChunk> Fetch();
+	GUINSOODB_API unique_ptr<DataChunk> Fetch();
 	//! Cleanup the result set (if any).
-	DUCKDB_API void Cleanup();
+	GUINSOODB_API void Cleanup();
 	//! Destroy the client context
-	DUCKDB_API void Destroy();
+	GUINSOODB_API void Destroy();
 
 	//! Get the table info of a specific table, or nullptr if it cannot be found
-	DUCKDB_API unique_ptr<TableDescription> TableInfo(const string &schema_name, const string &table_name);
+	GUINSOODB_API unique_ptr<TableDescription> TableInfo(const string &schema_name, const string &table_name);
 	//! Appends a DataChunk to the specified table. Returns whether or not the append was successful.
-	DUCKDB_API void Append(TableDescription &description, DataChunk &chunk);
+	GUINSOODB_API void Append(TableDescription &description, DataChunk &chunk);
 	//! Try to bind a relation in the current client context; either throws an exception or fills the result_columns
 	//! list with the set of returned columns
-	DUCKDB_API void TryBindRelation(Relation &relation, vector<ColumnDefinition> &result_columns);
+	GUINSOODB_API void TryBindRelation(Relation &relation, vector<ColumnDefinition> &result_columns);
 
 	//! Execute a relation
-	DUCKDB_API unique_ptr<QueryResult> Execute(const shared_ptr<Relation> &relation);
+	GUINSOODB_API unique_ptr<QueryResult> Execute(const shared_ptr<Relation> &relation);
 
 	//! Prepare a query
-	DUCKDB_API unique_ptr<PreparedStatement> Prepare(const string &query);
+	GUINSOODB_API unique_ptr<PreparedStatement> Prepare(const string &query);
 	//! Directly prepare a SQL statement
-	DUCKDB_API unique_ptr<PreparedStatement> Prepare(unique_ptr<SQLStatement> statement);
+	GUINSOODB_API unique_ptr<PreparedStatement> Prepare(unique_ptr<SQLStatement> statement);
 
 	//! Execute a prepared statement with the given name and set of parameters
 	//! It is possible that the prepared statement will be re-bound. This will generally happen if the catalog is
 	//! modified in between the prepared statement being bound and the prepared statement being run.
-	DUCKDB_API unique_ptr<QueryResult> Execute(const string &query, shared_ptr<PreparedStatementData> &prepared,
+	GUINSOODB_API unique_ptr<QueryResult> Execute(const string &query, shared_ptr<PreparedStatementData> &prepared,
 	                                           vector<Value> &values, bool allow_stream_result = true);
 
 	//! Gets current percentage of the query's progress, returns 0 in case the progress bar is disabled.
 	int GetProgress();
 
 	//! Register function in the temporary schema
-	DUCKDB_API void RegisterFunction(CreateFunctionInfo *info);
+	GUINSOODB_API void RegisterFunction(CreateFunctionInfo *info);
 
 	//! Parse statements from a query
-	DUCKDB_API vector<unique_ptr<SQLStatement>> ParseStatements(const string &query);
+	GUINSOODB_API vector<unique_ptr<SQLStatement>> ParseStatements(const string &query);
 	void HandlePragmaStatements(vector<unique_ptr<SQLStatement>> &statements);
 
 	//! Runs a function with a valid transaction context, potentially starting a transaction if the context is in auto
 	//! commit mode.
-	DUCKDB_API void RunFunctionInTransaction(const std::function<void(void)> &fun,
+	GUINSOODB_API void RunFunctionInTransaction(const std::function<void(void)> &fun,
 	                                         bool requires_valid_transaction = true);
 	//! Same as RunFunctionInTransaction, but does not obtain a lock on the client context or check for validation
-	DUCKDB_API void RunFunctionInTransactionInternal(ClientContextLock &lock, const std::function<void(void)> &fun,
+	GUINSOODB_API void RunFunctionInTransactionInternal(ClientContextLock &lock, const std::function<void(void)> &fun,
 	                                                 bool requires_valid_transaction = true);
 
 private:

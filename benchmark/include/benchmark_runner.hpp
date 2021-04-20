@@ -23,7 +23,7 @@ class BenchmarkRunner {
 	BenchmarkRunner();
 
 public:
-	static constexpr const char *DUCKDB_BENCHMARK_DIRECTORY = "guinsoodb_benchmark_data";
+	static constexpr const char *GUINSOODB_BENCHMARK_DIRECTORY = "guinsoodb_benchmark_data";
 	BenchmarkConfiguration configuration;
 
 	static BenchmarkRunner &GetInstance() {
@@ -31,9 +31,9 @@ public:
 		return instance;
 	}
 
-	//! Save the current database state, exporting it to a set of CSVs in the DUCKDB_BENCHMARK_DIRECTORY directory
+	//! Save the current database state, exporting it to a set of CSVs in the GUINSOODB_BENCHMARK_DIRECTORY directory
 	static void SaveDatabase(GuinsooDB &db, string name);
-	//! Try to initialize the database from the DUCKDB_BENCHMARK_DIRECTORY
+	//! Try to initialize the database from the GUINSOODB_BENCHMARK_DIRECTORY
 	static bool TryLoadDatabase(GuinsooDB &db, string name);
 
 	//! Register a benchmark in the Benchmark Runner, this is done automatically

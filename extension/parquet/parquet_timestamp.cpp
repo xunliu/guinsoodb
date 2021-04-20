@@ -1,7 +1,7 @@
 #include "parquet_timestamp.hpp"
 
 #include "guinsoodb.hpp"
-#ifndef DUCKDB_AMALGAMATION
+#ifndef GUINSOODB_AMALGAMATION
 #include "guinsoodb/common/types/date.hpp"
 #include "guinsoodb/common/types/time.hpp"
 #include "guinsoodb/common/types/timestamp.hpp"

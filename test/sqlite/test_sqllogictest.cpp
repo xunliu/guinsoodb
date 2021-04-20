@@ -1018,7 +1018,7 @@ string SQLLogicTestRunner::ReplaceKeywords(string input) {
 	FileSystem fs;
 	input = StringUtil::Replace(input, "__TEST_DIR__", TestDirectoryPath());
 	input = StringUtil::Replace(input, "__WORKING_DIRECTORY__", fs.GetWorkingDirectory());
-	input = StringUtil::Replace(input, "__BUILD_DIRECTORY__", DUCKDB_BUILD_DIRECTORY);
+	input = StringUtil::Replace(input, "__BUILD_DIRECTORY__", GUINSOODB_BUILD_DIRECTORY);
 
 	return input;
 }
@@ -1504,7 +1504,7 @@ struct AutoRegTests {
 		    "random/expr/slt_good_42.test", "random/expr/slt_good_27.test", "random/expr/slt_good_103.test",
 		    "random/expr/slt_good_75.test"};
 		FileSystem fs;
-		fs.SetWorkingDirectory(DUCKDB_ROOT_DIRECTORY);
+		fs.SetWorkingDirectory(GUINSOODB_ROOT_DIRECTORY);
 		listFiles(fs, fs.JoinPath(fs.JoinPath("third_party", "sqllogictest"), "test"), [excludes](const string &path) {
 			if (endsWith(path, ".test")) {
 				for (auto excl : excludes) {

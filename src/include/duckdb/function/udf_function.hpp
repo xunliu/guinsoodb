@@ -66,7 +66,7 @@ public:
 		RegisterFunction(name, arguments, ret_type, udf_function, context, varargs);
 	}
 
-	DUCKDB_API static void RegisterFunction(string name, vector<LogicalType> args, LogicalType ret_type,
+	GUINSOODB_API static void RegisterFunction(string name, vector<LogicalType> args, LogicalType ret_type,
 	                                        scalar_function_t udf_function, ClientContext &context,
 	                                        LogicalType varargs = LogicalType(LogicalTypeId::INVALID));
 
@@ -126,7 +126,7 @@ public:
 		return aggr_function;
 	}
 
-	DUCKDB_API static void RegisterAggrFunction(AggregateFunction aggr_function, ClientContext &context,
+	GUINSOODB_API static void RegisterAggrFunction(AggregateFunction aggr_function, ClientContext &context,
 	                                            LogicalType varargs = LogicalType(LogicalTypeId::INVALID));
 
 private:

@@ -20861,7 +20861,7 @@ int SQLITE_CDECL wmain(int argc, wchar_t **wargv){
         printf(".\nUse \".open FILENAME\" to reopen on a "
                "persistent database.\n");
       }
-      zHistory = getenv("DUCKDB_HISTORY");
+      zHistory = getenv("GUINSOODB_HISTORY");
       if( zHistory ){
         zHistory = strdup(zHistory);
       }else if( (zHome = find_home_dir(0))!=0 ){

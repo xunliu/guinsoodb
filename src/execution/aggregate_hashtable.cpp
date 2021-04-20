@@ -41,7 +41,7 @@ GroupedAggregateHashTable::GroupedAggregateHashTable(BufferManager &buffer_manag
 
 	// HT layout
 	tuple_size = HASH_WIDTH + group_width + payload_width;
-#ifndef DUCKDB_ALLOW_UNDEFINED
+#ifndef GUINSOODB_ALLOW_UNDEFINED
 	tuple_size = BaseAggregateHashTable::Align(tuple_size);
 #endif
 

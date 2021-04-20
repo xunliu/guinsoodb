@@ -19,12 +19,12 @@ class PreparedStatementData;
 class PreparedStatement {
 public:
 	//! Create a successfully prepared prepared statement object with the given name
-	DUCKDB_API PreparedStatement(shared_ptr<ClientContext> context, shared_ptr<PreparedStatementData> data,
+	GUINSOODB_API PreparedStatement(shared_ptr<ClientContext> context, shared_ptr<PreparedStatementData> data,
 	                             string query, idx_t n_param);
 	//! Create a prepared statement that was not successfully prepared
-	DUCKDB_API explicit PreparedStatement(string error);
+	GUINSOODB_API explicit PreparedStatement(string error);
 
-	DUCKDB_API ~PreparedStatement();
+	GUINSOODB_API ~PreparedStatement();
 
 public:
 	//! The client context this prepared statement belongs to
@@ -58,7 +58,7 @@ public:
 	}
 
 	//! Execute the prepared statement with the given set of values
-	DUCKDB_API unique_ptr<QueryResult> Execute(vector<Value> &values, bool allow_stream_result = true);
+	GUINSOODB_API unique_ptr<QueryResult> Execute(vector<Value> &values, bool allow_stream_result = true);
 
 private:
 	unique_ptr<QueryResult> ExecuteRecursive(vector<Value> &values) {

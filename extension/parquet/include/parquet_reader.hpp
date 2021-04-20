@@ -9,7 +9,7 @@
 #pragma once
 
 #include "guinsoodb.hpp"
-#ifndef DUCKDB_AMALGAMATION
+#ifndef GUINSOODB_AMALGAMATION
 #include "guinsoodb/common/common.hpp"
 #include "guinsoodb/common/exception.hpp"
 #include "guinsoodb/common/string_util.hpp"

@@ -26,8 +26,8 @@ class DatabaseInstance : public std::enable_shared_from_this<DatabaseInstance> {
 	friend class GuinsooDB;
 
 public:
-	DUCKDB_API DatabaseInstance();
-	DUCKDB_API ~DatabaseInstance();
+	GUINSOODB_API DatabaseInstance();
+	GUINSOODB_API ~DatabaseInstance();
 
 	DBConfig config;
 
@@ -62,9 +62,9 @@ private:
 //! database-specific meta information.
 class GuinsooDB {
 public:
-	DUCKDB_API explicit GuinsooDB(const char *path = nullptr, DBConfig *config = nullptr);
-	DUCKDB_API explicit GuinsooDB(const string &path, DBConfig *config = nullptr);
-	DUCKDB_API ~GuinsooDB();
+	GUINSOODB_API explicit GuinsooDB(const char *path = nullptr, DBConfig *config = nullptr);
+	GUINSOODB_API explicit GuinsooDB(const string &path, DBConfig *config = nullptr);
+	GUINSOODB_API ~GuinsooDB();
 
 	//! Reference to the actual database instance
 	shared_ptr<DatabaseInstance> instance;
@@ -76,11 +76,11 @@ public:
 		extension.Load(*this);
 	}
 
-	DUCKDB_API FileSystem &GetFileSystem();
+	GUINSOODB_API FileSystem &GetFileSystem();
 
-	DUCKDB_API idx_t NumberOfThreads();
-	DUCKDB_API static const char *SourceID();
-	DUCKDB_API static const char *LibraryVersion();
+	GUINSOODB_API idx_t NumberOfThreads();
+	GUINSOODB_API static const char *SourceID();
+	GUINSOODB_API static const char *LibraryVersion();
 };
 
 } // namespace guinsoodb

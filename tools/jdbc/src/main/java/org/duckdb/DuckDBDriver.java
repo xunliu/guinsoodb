@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class GuinsooDBDriver implements java.sql.Driver {
 
-	static final String DUCKDB_READONLY_PROPERTY = "guinsoodb.read_only";
+	static final String GUINSOODB_READONLY_PROPERTY = "guinsoodb.read_only";
 
 	static {
 		try {
@@ -26,7 +26,7 @@ public class GuinsooDBDriver implements java.sql.Driver {
 		}
 		boolean read_only = false;
 		if (info != null) {
-			String prop_val = info.getProperty(DUCKDB_READONLY_PROPERTY);
+			String prop_val = info.getProperty(GUINSOODB_READONLY_PROPERTY);
 			if (prop_val != null) {
 				String prop_clean = prop_val.trim().toLowerCase();
 				read_only = prop_clean.equals("1") || prop_clean.equals("true") || prop_clean.equals("yes");

@@ -21,24 +21,24 @@ class StreamQueryResult : public QueryResult {
 public:
 	//! Create a successful StreamQueryResult. StreamQueryResults should always be successful initially (it makes no
 	//! sense to stream an error).
-	DUCKDB_API StreamQueryResult(StatementType statement_type, shared_ptr<ClientContext> context,
+	GUINSOODB_API StreamQueryResult(StatementType statement_type, shared_ptr<ClientContext> context,
 	                             vector<LogicalType> types, vector<string> names,
 	                             shared_ptr<PreparedStatementData> prepared = nullptr);
-	DUCKDB_API ~StreamQueryResult() override;
+	GUINSOODB_API ~StreamQueryResult() override;
 
 	//! Whether or not the StreamQueryResult is still open
 	bool is_open;
 
 public:
 	//! Fetches a DataChunk from the query result.
-	DUCKDB_API unique_ptr<DataChunk> FetchRaw() override;
+	GUINSOODB_API unique_ptr<DataChunk> FetchRaw() override;
 	//! Converts the QueryResult to a string
-	DUCKDB_API string ToString() override;
+	GUINSOODB_API string ToString() override;
 	//! Materializes the query result and turns it into a materialized query result
-	DUCKDB_API unique_ptr<MaterializedQueryResult> Materialize();
+	GUINSOODB_API unique_ptr<MaterializedQueryResult> Materialize();
 
 	//! Closes the StreamQueryResult
-	DUCKDB_API void Close();
+	GUINSOODB_API void Close();
 
 private:
 	//! The client context this StreamQueryResult belongs to

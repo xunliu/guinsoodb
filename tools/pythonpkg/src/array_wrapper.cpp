@@ -10,8 +10,8 @@ namespace guinsoodb {
 namespace guinsoodb_py_convert {
 
 struct RegularConvert {
-	template <class DUCKDB_T, class NUMPY_T>
-	static NUMPY_T ConvertValue(DUCKDB_T val) {
+	template <class GUINSOODB_T, class NUMPY_T>
+	static NUMPY_T ConvertValue(GUINSOODB_T val) {
 		return (NUMPY_T)val;
 	}
 
@@ -22,7 +22,7 @@ struct RegularConvert {
 };
 
 struct TimestampConvert {
-	template <class DUCKDB_T, class NUMPY_T>
+	template <class GUINSOODB_T, class NUMPY_T>
 	static int64_t ConvertValue(timestamp_t val) {
 		return Timestamp::GetEpochNanoSeconds(val);
 	}
@@ -34,7 +34,7 @@ struct TimestampConvert {
 };
 
 struct DateConvert {
-	template <class DUCKDB_T, class NUMPY_T>
+	template <class GUINSOODB_T, class NUMPY_T>
 	static int64_t ConvertValue(date_t val) {
 		return Date::EpochNanoseconds(val);
 	}
@@ -46,7 +46,7 @@ struct DateConvert {
 };
 
 struct TimeConvert {
-	template <class DUCKDB_T, class NUMPY_T>
+	template <class GUINSOODB_T, class NUMPY_T>
 	static PyObject *ConvertValue(dtime_t val) {
 		auto str = guinsoodb::Time::ToString(val);
 		return PyUnicode_FromStringAndSize(str.c_str(), str.size());
@@ -129,7 +129,7 @@ struct StringConvert {
 		return result;
 	}
 
-	template <class DUCKDB_T, class NUMPY_T>
+	template <class GUINSOODB_T, class NUMPY_T>
 	static PyObject *ConvertValue(string_t val) {
 		// we could use PyUnicode_FromStringAndSize here, but it does a lot of verification that we don't need
 		// because of that it is a lot slower than it needs to be
@@ -150,7 +150,7 @@ struct StringConvert {
 		return result;
 	}
 #else
-	template <class DUCKDB_T, class NUMPY_T>
+	template <class GUINSOODB_T, class NUMPY_T>
 	static PyObject *ConvertValue(string_t val) {
 		return py::str(val.GetString()).release().ptr();
 	}
@@ -163,7 +163,7 @@ struct StringConvert {
 };
 
 struct BlobConvert {
-	template <class DUCKDB_T, class NUMPY_T>
+	template <class GUINSOODB_T, class NUMPY_T>
 	static PyObject *ConvertValue(string_t val) {
 		return PyByteArray_FromStringAndSize(val.GetDataUnsafe(), val.GetSize());
 	}
@@ -175,8 +175,8 @@ struct BlobConvert {
 };
 
 struct IntegralConvert {
-	template <class DUCKDB_T, class NUMPY_T>
-	static NUMPY_T ConvertValue(DUCKDB_T val) {
+	template <class GUINSOODB_T, class NUMPY_T>
+	static NUMPY_T ConvertValue(GUINSOODB_T val) {
 		return NUMPY_T(val);
 	}
 
@@ -195,10 +195,10 @@ double IntegralConvert::ConvertValue(hugeint_t val) {
 
 } // namespace guinsoodb_py_convert
 
-template <class DUCKDB_T, class NUMPY_T, class CONVERT>
+template <class GUINSOODB_T, class NUMPY_T, class CONVERT>
 static bool ConvertColumn(idx_t target_offset, data_ptr_t target_data, bool *target_mask, VectorData &idata,
                           idx_t count) {
-	auto src_ptr = (DUCKDB_T *)idata.data;
+	auto src_ptr = (GUINSOODB_T *)idata.data;
 	auto out_ptr = (NUMPY_T *)target_data;
 	if (!idata.validity.AllValid()) {
 		for (idx_t i = 0; i < count; i++) {
@@ -208,7 +208,7 @@ static bool ConvertColumn(idx_t target_offset, data_ptr_t target_data, bool *tar
 				target_mask[offset] = true;
 				out_ptr[offset] = CONVERT::template NullValue<NUMPY_T>();
 			} else {
-				out_ptr[offset] = CONVERT::template ConvertValue<DUCKDB_T, NUMPY_T>(src_ptr[src_idx]);
+				out_ptr[offset] = CONVERT::template ConvertValue<GUINSOODB_T, NUMPY_T>(src_ptr[src_idx]);
 				target_mask[offset] = false;
 			}
 		}
@@ -217,7 +217,7 @@ static bool ConvertColumn(idx_t target_offset, data_ptr_t target_data, bool *tar
 		for (idx_t i = 0; i < count; i++) {
 			idx_t src_idx = idata.sel->get_index(i);
 			idx_t offset = target_offset + i;
-			out_ptr[offset] = CONVERT::template ConvertValue<DUCKDB_T, NUMPY_T>(src_ptr[src_idx]);
+			out_ptr[offset] = CONVERT::template ConvertValue<GUINSOODB_T, NUMPY_T>(src_ptr[src_idx]);
 			target_mask[offset] = false;
 		}
 		return false;
@@ -231,10 +231,10 @@ static bool ConvertColumnRegular(idx_t target_offset, data_ptr_t target_data, bo
 	                                                              count);
 }
 
-template <class DUCKDB_T>
+template <class GUINSOODB_T>
 static bool ConvertDecimalInternal(idx_t target_offset, data_ptr_t target_data, bool *target_mask, VectorData &idata,
                                    idx_t count, double division) {
-	auto src_ptr = (DUCKDB_T *)idata.data;
+	auto src_ptr = (GUINSOODB_T *)idata.data;
 	auto out_ptr = (double *)target_data;
 	if (!idata.validity.AllValid()) {
 		for (idx_t i = 0; i < count; i++) {
@@ -244,7 +244,7 @@ static bool ConvertDecimalInternal(idx_t target_offset, data_ptr_t target_data, 
 				target_mask[offset] = true;
 			} else {
 				out_ptr[offset] =
-				    guinsoodb_py_convert::IntegralConvert::ConvertValue<DUCKDB_T, double>(src_ptr[src_idx]) / division;
+				    guinsoodb_py_convert::IntegralConvert::ConvertValue<GUINSOODB_T, double>(src_ptr[src_idx]) / division;
 				target_mask[offset] = false;
 			}
 		}
@@ -254,7 +254,7 @@ static bool ConvertDecimalInternal(idx_t target_offset, data_ptr_t target_data, 
 			idx_t src_idx = idata.sel->get_index(i);
 			idx_t offset = target_offset + i;
 			out_ptr[offset] =
-			    guinsoodb_py_convert::IntegralConvert::ConvertValue<DUCKDB_T, double>(src_ptr[src_idx]) / division;
+			    guinsoodb_py_convert::IntegralConvert::ConvertValue<GUINSOODB_T, double>(src_ptr[src_idx]) / division;
 			target_mask[offset] = false;
 		}
 		return false;

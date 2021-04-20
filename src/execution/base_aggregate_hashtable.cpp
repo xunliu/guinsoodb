@@ -7,7 +7,7 @@ vector<AggregateObject> AggregateObject::CreateAggregateObjects(const vector<Bou
 	vector<AggregateObject> aggregates;
 	for (auto &binding : bindings) {
 		auto payload_size = binding->function.state_size();
-#ifndef DUCKDB_ALLOW_UNDEFINED
+#ifndef GUINSOODB_ALLOW_UNDEFINED
 		payload_size = BaseAggregateHashTable::Align(payload_size);
 #endif
 		aggregates.emplace_back(binding->function, binding->bind_info.get(), binding->children.size(), payload_size,
@@ -27,7 +27,7 @@ BaseAggregateHashTable::BaseAggregateHashTable(BufferManager &buffer_manager, ve
 	}
 	for (idx_t i = 0; i < aggregates.size(); i++) {
 		payload_width += aggregates[i].payload_size;
-#ifndef DUCKDB_ALLOW_UNDEFINED
+#ifndef GUINSOODB_ALLOW_UNDEFINED
 		D_ASSERT(aggregates[i].payload_size == BaseAggregateHashTable::Align(aggregates[i].payload_size));
 #endif
 	}
@@ -43,7 +43,7 @@ BaseAggregateHashTable::BaseAggregateHashTable(BufferManager &buffer_manager, ve
 
 	D_ASSERT(group_width > 0);
 
-#ifndef DUCKDB_ALLOW_UNDEFINED
+#ifndef GUINSOODB_ALLOW_UNDEFINED
 	auto aligned_group_width = BaseAggregateHashTable::Align(group_width);
 	group_padding = aligned_group_width - group_width;
 	group_width += group_padding;

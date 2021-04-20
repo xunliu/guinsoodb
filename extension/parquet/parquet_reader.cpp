@@ -8,7 +8,7 @@
 #include "parquet_file_metadata_cache.hpp"
 
 #include "guinsoodb.hpp"
-#ifndef DUCKDB_AMALGAMATION
+#ifndef GUINSOODB_AMALGAMATION
 #include "guinsoodb/planner/table_filter.hpp"
 #include "guinsoodb/common/file_system.hpp"
 #include "guinsoodb/common/string_util.hpp"

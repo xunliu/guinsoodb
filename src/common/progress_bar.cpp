@@ -5,7 +5,7 @@
 namespace guinsoodb {
 
 void ProgressBar::ProgressBarThread() {
-#ifndef DUCKDB_NO_THREADS
+#ifndef GUINSOODB_NO_THREADS
 	WaitFor(std::chrono::milliseconds(show_progress_after));
 	while (!stop) {
 		int new_percentage;
@@ -24,14 +24,14 @@ int ProgressBar::GetCurrentPercentage() {
 }
 
 void ProgressBar::Start() {
-#ifndef DUCKDB_NO_THREADS
+#ifndef GUINSOODB_NO_THREADS
 	current_percentage = 0;
 	progress_bar_thread = std::thread(&ProgressBar::ProgressBarThread, this);
 #endif
 }
 
 void ProgressBar::Stop() {
-#ifndef DUCKDB_NO_THREADS
+#ifndef GUINSOODB_NO_THREADS
 	if (progress_bar_thread.joinable()) {
 		{
 			std::lock_guard<std::mutex> l(m);

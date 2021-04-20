@@ -1,4 +1,4 @@
-#ifndef DUCKDB_NO_THREADS
+#ifndef GUINSOODB_NO_THREADS
 
 #include <guinsoodb/execution/executor.hpp>
 #include <future>

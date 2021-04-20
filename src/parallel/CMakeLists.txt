@@ -1,5 +1,5 @@
 if(${DISABLE_THREADS})
-  add_definitions(-DDUCKDB_NO_THREADS)
+  add_definitions(-DGUINSOODB_NO_THREADS)
 endif()
 
 add_library_unity(guinsoodb_parallel OBJECT executor.cpp pipeline.cpp

@@ -23,5 +23,5 @@ include_directories(../../)
 
 # this is used for clang-tidy checks and IDE support
 add_library(guinsoodb_r_shlib SHARED src/guinsoodbr.cpp)
-target_link_libraries(guinsoodb_r_shlib guinsoodb ${DUCKDB_EXTRA_LINK_FLAGS}
+target_link_libraries(guinsoodb_r_shlib guinsoodb ${GUINSOODB_EXTRA_LINK_FLAGS}
                       ${R_LIBRARY_BASE})

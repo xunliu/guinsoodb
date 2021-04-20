@@ -64,8 +64,8 @@ public:
 	Napi::Value Close(const Napi::CallbackInfo &info);
 
 public:
-	constexpr static int DUCKDB_NODEJS_ERROR = -1;
-	constexpr static int DUCKDB_NODEJS_READONLY = 1;
+	constexpr static int GUINSOODB_NODEJS_ERROR = -1;
+	constexpr static int GUINSOODB_NODEJS_READONLY = 1;
 	std::unique_ptr<guinsoodb::GuinsooDB> database;
 
 private:

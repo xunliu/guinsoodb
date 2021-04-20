@@ -154,7 +154,7 @@ def build_package(target_dir, extensions, linenumbers = False):
     for inc in include_files:
         copy_file(inc, target_dir)
 
-    # handle pragma_version.cpp: paste #define DUCKDB_SOURCE_ID and DUCKDB_VERSION there
+    # handle pragma_version.cpp: paste #define GUINSOODB_SOURCE_ID and GUINSOODB_VERSION there
     curdir = os.getcwd()
     os.chdir(os.path.join(scripts_dir, '..'))
     githash = git_commit_hash()
@@ -164,23 +164,23 @@ def build_package(target_dir, extensions, linenumbers = False):
     fpath = os.path.join(target_dir, 'src', 'function', 'table', 'version', 'pragma_version.cpp')
     with open_utf8(fpath, 'r') as f:
         text = f.read()
-    # now add the DUCKDB_SOURCE_ID define, if it is not there already
+    # now add the GUINSOODB_SOURCE_ID define, if it is not there already
     found_hash = False
     found_dev = False
     lines = text.split('\n')
     for i in range(len(lines)):
-        if '#define DUCKDB_SOURCE_ID ' in lines[i]:
-            lines[i] = '#define DUCKDB_SOURCE_ID "{}"'.format(githash)
+        if '#define GUINSOODB_SOURCE_ID ' in lines[i]:
+            lines[i] = '#define GUINSOODB_SOURCE_ID "{}"'.format(githash)
             found_hash = True
             break
-        if '#define DUCKDB_VERSION ' in lines[i]:
-            lines[i] = '#define DUCKDB_VERSION "{}"'.format(dev_version)
+        if '#define GUINSOODB_VERSION ' in lines[i]:
+            lines[i] = '#define GUINSOODB_VERSION "{}"'.format(dev_version)
             found_dev = True
             break
     if not found_hash:
-        lines = ['#ifndef DUCKDB_SOURCE_ID', '#define DUCKDB_SOURCE_ID "{}"'.format(githash), '#endif'] + lines
+        lines = ['#ifndef GUINSOODB_SOURCE_ID', '#define GUINSOODB_SOURCE_ID "{}"'.format(githash), '#endif'] + lines
     if not found_dev:
-        lines = ['#ifndef DUCKDB_VERSION', '#define DUCKDB_VERSION "{}"'.format(dev_version), '#endif'] + lines
+        lines = ['#ifndef GUINSOODB_VERSION', '#define GUINSOODB_VERSION "{}"'.format(dev_version), '#endif'] + lines
     text = '\n'.join(lines)
     with open_utf8(fpath, 'w+') as f:
         f.write(text)

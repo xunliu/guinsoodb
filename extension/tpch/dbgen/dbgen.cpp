@@ -2,7 +2,7 @@
 #include "dbgen/dbgen_gunk.hpp"
 #include "tpch_constants.hpp"
 
-#ifndef DUCKDB_AMALGAMATION
+#ifndef GUINSOODB_AMALGAMATION
 #include "guinsoodb/common/exception.hpp"
 #include "guinsoodb/common/types/date.hpp"
 #include "guinsoodb/parser/column_definition.hpp"

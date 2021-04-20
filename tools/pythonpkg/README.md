@@ -48,6 +48,6 @@ First, get the repository based version number and extract the source distributi
  
 Next, copy over the python package related files, and install the package.
 
-    mkdir -p $DUCKDB_PREFIX/src/guinsoodb-pythonpkg
-    tar --directory=$DUCKDB_PREFIX/src/guinsoodb-pythonpkg -xzpf tools/pythonpkg/dist/guinsoodb-${SETUPTOOLS_SCM_PRETEND_VERSION}.tar.gz
-    pip3 install --prefix $DUCKDB_PREFIX -e $DUCKDB_PREFIX/src/guinsoodb-pythonpkg/guinsoodb-${SETUPTOOLS_SCM_PRETEND_VERSION}
+    mkdir -p $GUINSOODB_PREFIX/src/guinsoodb-pythonpkg
+    tar --directory=$GUINSOODB_PREFIX/src/guinsoodb-pythonpkg -xzpf tools/pythonpkg/dist/guinsoodb-${SETUPTOOLS_SCM_PRETEND_VERSION}.tar.gz
+    pip3 install --prefix $GUINSOODB_PREFIX -e $GUINSOODB_PREFIX/src/guinsoodb-pythonpkg/guinsoodb-${SETUPTOOLS_SCM_PRETEND_VERSION}

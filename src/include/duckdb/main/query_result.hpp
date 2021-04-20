@@ -24,13 +24,13 @@ enum class QueryResultType : uint8_t { MATERIALIZED_RESULT, STREAM_RESULT };
 class QueryResult {
 public:
 	//! Creates an successful empty query result
-	DUCKDB_API QueryResult(QueryResultType type, StatementType statement_type);
+	GUINSOODB_API QueryResult(QueryResultType type, StatementType statement_type);
 	//! Creates a successful query result with the specified names and types
-	DUCKDB_API QueryResult(QueryResultType type, StatementType statement_type, vector<LogicalType> types,
+	GUINSOODB_API QueryResult(QueryResultType type, StatementType statement_type, vector<LogicalType> types,
 	                       vector<string> names);
 	//! Creates an unsuccessful query result with error condition
-	DUCKDB_API QueryResult(QueryResultType type, string error);
-	DUCKDB_API virtual ~QueryResult() {
+	GUINSOODB_API QueryResult(QueryResultType type, string error);
+	GUINSOODB_API virtual ~QueryResult() {
 	}
 
 	//! The type of the result (MATERIALIZED or STREAMING)
@@ -51,22 +51,22 @@ public:
 public:
 	//! Fetches a DataChunk of normalized (flat) vectors from the query result.
 	//! Returns nullptr if there are no more results to fetch.
-	DUCKDB_API virtual unique_ptr<DataChunk> Fetch();
+	GUINSOODB_API virtual unique_ptr<DataChunk> Fetch();
 	//! Fetches a DataChunk from the query result. The vector types
-	DUCKDB_API virtual unique_ptr<DataChunk> FetchRaw() = 0;
+	GUINSOODB_API virtual unique_ptr<DataChunk> FetchRaw() = 0;
 	// Converts the QueryResult to a string
-	DUCKDB_API virtual string ToString() = 0;
+	GUINSOODB_API virtual string ToString() = 0;
 	//! Prints the QueryResult to the console
-	DUCKDB_API void Print();
+	GUINSOODB_API void Print();
 	//! Returns true if the two results are identical; false otherwise. Note that this method is destructive; it calls
 	//! Fetch() until both results are exhausted. The data in the results will be lost.
-	DUCKDB_API bool Equals(QueryResult &other);
+	GUINSOODB_API bool Equals(QueryResult &other);
 
-	DUCKDB_API idx_t ColumnCount() {
+	GUINSOODB_API idx_t ColumnCount() {
 		return types.size();
 	}
 
-	DUCKDB_API void ToArrowSchema(ArrowSchema *out_array);
+	GUINSOODB_API void ToArrowSchema(ArrowSchema *out_array);
 
 private:
 	//! The current chunk used by the iterator
@@ -126,15 +126,15 @@ private:
 	};
 
 public:
-	DUCKDB_API QueryResultIterator begin() {
+	GUINSOODB_API QueryResultIterator begin() {
 		return QueryResultIterator(this);
 	}
-	DUCKDB_API QueryResultIterator end() {
+	GUINSOODB_API QueryResultIterator end() {
 		return QueryResultIterator(nullptr);
 	}
 
 protected:
-	DUCKDB_API string HeaderToString();
+	GUINSOODB_API string HeaderToString();
 
 private:
 	QueryResult(const QueryResult &) = delete;

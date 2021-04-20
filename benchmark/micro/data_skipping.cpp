@@ -9,7 +9,7 @@ using namespace guinsoodb;
 #define RANGE_QUERY_ROW_COUNT pow(10, 7)
 #define SUM_RESULT            100
 
-DUCKDB_BENCHMARK(DataSkipping, "[micro]")
+GUINSOODB_BENCHMARK(DataSkipping, "[micro]")
 virtual void Load(GuinsooDBBenchmarkState *state) {
 	state->conn.Query("CREATE TABLE integers(i INTEGER, j INTEGER);");
 	Appender appender(state->conn, "integers"); // insert the elements into the database

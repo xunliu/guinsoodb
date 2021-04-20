@@ -21,8 +21,8 @@ class SQLStatement;
 
 class PreparedStatementData {
 public:
-	DUCKDB_API explicit PreparedStatementData(StatementType type);
-	DUCKDB_API ~PreparedStatementData();
+	GUINSOODB_API explicit PreparedStatementData(StatementType type);
+	GUINSOODB_API ~PreparedStatementData();
 
 	StatementType statement_type;
 	//! The unbound SQL statement that was prepared
@@ -51,9 +51,9 @@ public:
 
 public:
 	//! Bind a set of values to the prepared statement data
-	DUCKDB_API void Bind(vector<Value> values);
+	GUINSOODB_API void Bind(vector<Value> values);
 	//! Get the expected SQL Type of the bound parameter
-	DUCKDB_API LogicalType GetType(idx_t param_index);
+	GUINSOODB_API LogicalType GetType(idx_t param_index);
 };
 
 } // namespace guinsoodb

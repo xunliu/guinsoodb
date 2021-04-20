@@ -77,7 +77,7 @@ private:
 
 InterpretedBenchmark::InterpretedBenchmark(string full_path)
     : Benchmark(true, full_path, ParseGroupFromPath(full_path)), benchmark_path(full_path) {
-	replacement_mapping["BENCHMARK_DIR"] = BenchmarkRunner::DUCKDB_BENCHMARK_DIRECTORY;
+	replacement_mapping["BENCHMARK_DIR"] = BenchmarkRunner::GUINSOODB_BENCHMARK_DIRECTORY;
 }
 
 void InterpretedBenchmark::LoadBenchmark() {

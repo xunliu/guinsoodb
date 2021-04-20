@@ -8,7 +8,7 @@
 #pragma once
 
 #include "guinsoodb.hpp"
-#ifndef DUCKDB_AMALGAMATION
+#ifndef GUINSOODB_AMALGAMATION
 #include "guinsoodb/storage/object_cache.hpp"
 #endif
 #include "parquet_types.h"

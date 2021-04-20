@@ -8,7 +8,7 @@
 #include "parquet_writer.hpp"
 
 #include "guinsoodb.hpp"
-#ifndef DUCKDB_AMALGAMATION
+#ifndef GUINSOODB_AMALGAMATION
 #include "guinsoodb.hpp"
 #include "guinsoodb/common/types/chunk_collection.hpp"
 #include "guinsoodb/function/copy_function.hpp"

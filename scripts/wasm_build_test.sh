@@ -6,9 +6,9 @@ source "$(dirname "${BASH_SOURCE[0]}")/wasm_env.sh"
 
 HELLO_WASM_CPP="${PROJECT_ROOT}/test/wasm/hello_wasm.cpp"
 
-test -f "${DUCKDB_WASM}" \
-    && { echo "[ OK  ] GuinsooDB WASM: ${DUCKDB_WASM}"; } \
-    || { echo "[ ERR ] GuinsooDB WASM: ${DUCKDB_WASM}"; exit 1; }
+test -f "${GUINSOODB_WASM}" \
+    && { echo "[ OK  ] GuinsooDB WASM: ${GUINSOODB_WASM}"; } \
+    || { echo "[ ERR ] GuinsooDB WASM: ${GUINSOODB_WASM}"; exit 1; }
 
 BUILD_TYPE=${1:-Release}
 FLAGS=-O3
@@ -28,7 +28,7 @@ ${EMCPP} \
     -std=gnu++17 \
     -fexceptions \
     -D NDEBUG \
-    -D DUCKDB_NO_THREADS=1 \
+    -D GUINSOODB_NO_THREADS=1 \
     -s WASM=1 \
     -s LLD_REPORT_UNDEFINED=1 \
     -s WARN_ON_UNDEFINED_SYMBOLS=1 \
@@ -40,6 +40,6 @@ ${EMCPP} \
     -s EXPORTED_FUNCTIONS='[ _main, _HelloWasm ]' \
     -I ${PROJECT_ROOT}/src/include \
     -I ${PROJECT_ROOT}/third_party/concurrentqueue/ \
-    ${DUCKDB_WASM} \
+    ${GUINSOODB_WASM} \
     ${HELLO_WASM_CPP} \
     -o ${BUILD_DIR}/hello_wasm.js

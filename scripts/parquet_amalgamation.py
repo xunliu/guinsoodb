@@ -48,8 +48,8 @@ def generate_parquet_amalgamation(source_file, header_file):
     with open_utf8(temp_source, 'w+') as sfile:
         header_file_name = header_file.split(os.sep)[-1]
         sfile.write('''#include "guinsoodb.hpp"
-#ifdef DUCKDB_AMALGAMATION
-#ifndef DUCKDB_AMALGAMATION_EXTENDED
+#ifdef GUINSOODB_AMALGAMATION
+#ifndef GUINSOODB_AMALGAMATION_EXTENDED
 #error Parquet amalgamation requires extended GuinsooDB amalgamation (--extended)
 #endif
 #endif

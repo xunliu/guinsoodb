@@ -9,7 +9,7 @@ with open(common_path, 'r') as f:
 text = text.replace('#pragma once', '''#pragma once
 
 #ifdef _WIN32
-#ifdef DUCKDB_MAIN_LIBRARY
+#ifdef GUINSOODB_MAIN_LIBRARY
 #include <windows.h>
 #endif
 #endif''')

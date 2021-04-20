@@ -29,7 +29,7 @@ struct DBConfig {
 	friend class StorageManager;
 
 public:
-	DUCKDB_API ~DBConfig();
+	GUINSOODB_API ~DBConfig();
 
 	//! Access mode of the database (AUTOMATIC, READ_ONLY or READ_WRITE)
 	AccessMode access_mode = AccessMode::AUTOMATIC;
@@ -68,8 +68,8 @@ public:
 	vector<ReplacementScan> replacement_scans;
 
 public:
-	DUCKDB_API static DBConfig &GetConfig(ClientContext &context);
-	DUCKDB_API static DBConfig &GetConfig(DatabaseInstance &db);
+	GUINSOODB_API static DBConfig &GetConfig(ClientContext &context);
+	GUINSOODB_API static DBConfig &GetConfig(DatabaseInstance &db);
 };
 
 } // namespace guinsoodb

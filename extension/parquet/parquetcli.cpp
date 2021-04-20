@@ -1,6 +1,6 @@
 
 #include "guinsoodb.hpp"
-#ifndef DUCKDB_AMALGAMATION
+#ifndef GUINSOODB_AMALGAMATION
 #include "parquet_reader.hpp"
 #include "guinsoodb/planner/table_filter.hpp"
 #else

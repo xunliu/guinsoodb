@@ -4,16 +4,16 @@ set -euo pipefail
 
 source "$(dirname "${BASH_SOURCE[0]}")/wasm_env.sh"
 
-DUCKDB_CC="${PROJECT_ROOT}/src/amalgamation/guinsoodb.cpp"
-DUCKDB_H="${PROJECT_ROOT}/src/amalgamation/guinsoodb.hpp"
+GUINSOODB_CC="${PROJECT_ROOT}/src/amalgamation/guinsoodb.cpp"
+GUINSOODB_H="${PROJECT_ROOT}/src/amalgamation/guinsoodb.hpp"
 
-test -f "${DUCKDB_CC}" \
-    && { echo "[ OK  ] Amalgamation Source: ${DUCKDB_CC}"; } \
-    || { echo "[ ERR ] Amalgamation Source: ${DUCKDB_CC}"; exit 1; }
+test -f "${GUINSOODB_CC}" \
+    && { echo "[ OK  ] Amalgamation Source: ${GUINSOODB_CC}"; } \
+    || { echo "[ ERR ] Amalgamation Source: ${GUINSOODB_CC}"; exit 1; }
 
-test -f "${DUCKDB_H}" \
-    && { echo "[ OK  ] Amalgamation Header: ${DUCKDB_H}"; } \
-    || { echo "[ ERR ] Amalgamation Header: ${DUCKDB_H}"; exit 1; }
+test -f "${GUINSOODB_H}" \
+    && { echo "[ OK  ] Amalgamation Header: ${GUINSOODB_H}"; } \
+    || { echo "[ ERR ] Amalgamation Header: ${GUINSOODB_H}"; exit 1; }
 
 BUILD_TYPE=${1:-Release}
 FLAGS=-O3
@@ -40,8 +40,8 @@ ${EMCPP} \
     -sDISABLE_EXCEPTION_CATCHING=0 \
     -sUSE_PTHREADS=0 \
     -DNDEBUG \
-    -DDUCKDB_NO_THREADS=1 \
+    -DGUINSOODB_NO_THREADS=1 \
     -I ${PROJECT_ROOT}/src/include \
     -I ${PROJECT_ROOT}/third_party/concurrentqueue/ \
-    -o ${DUCKDB_WASM} \
-    -c ${DUCKDB_CC}
+    -o ${GUINSOODB_WASM} \
+    -c ${GUINSOODB_CC}

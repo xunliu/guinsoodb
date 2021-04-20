@@ -9,7 +9,7 @@ using namespace guinsoodb;
 #define GROUP_ROW_COUNT 1000000
 #define GROUP_COUNT     5
 
-DUCKDB_BENCHMARK(BulkUpdate, "[bulkupdate]")
+GUINSOODB_BENCHMARK(BulkUpdate, "[bulkupdate]")
 int64_t sum = 0;
 int64_t count = 0;
 void Load(GuinsooDBBenchmarkState *state) override {
@@ -46,7 +46,7 @@ string BenchmarkInfo() override {
 }
 FINISH_BENCHMARK(BulkUpdate)
 
-DUCKDB_BENCHMARK(BulkDelete, "[bulkupdate]")
+GUINSOODB_BENCHMARK(BulkDelete, "[bulkupdate]")
 int64_t sum = 0;
 int64_t count = 0;
 void Load(GuinsooDBBenchmarkState *state) override {

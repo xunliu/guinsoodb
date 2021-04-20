@@ -39,7 +39,7 @@ using namespace guinsoodb;
 		return make_unique<DBConfig>();                                                                                \
 	}
 
-DUCKDB_BENCHMARK(TPCHEmptyStartup, "[startup]")
+GUINSOODB_BENCHMARK(TPCHEmptyStartup, "[startup]")
 TPCHStartup("SELECT * FROM lineitem WHERE 1=0") NormalConfig() string VerifyResult(QueryResult *result) override {
 	if (!result->success) {
 		return result->error;
@@ -48,7 +48,7 @@ TPCHStartup("SELECT * FROM lineitem WHERE 1=0") NormalConfig() string VerifyResu
 }
 FINISH_BENCHMARK(TPCHEmptyStartup)
 
-DUCKDB_BENCHMARK(TPCHCount, "[startup]")
+GUINSOODB_BENCHMARK(TPCHCount, "[startup]")
 TPCHStartup("SELECT COUNT(*) FROM lineitem") NormalConfig() string VerifyResult(QueryResult *result) override {
 	if (!result->success) {
 		return result->error;
@@ -57,7 +57,7 @@ TPCHStartup("SELECT COUNT(*) FROM lineitem") NormalConfig() string VerifyResult(
 }
 FINISH_BENCHMARK(TPCHCount)
 
-DUCKDB_BENCHMARK(TPCHSimpleAggr, "[startup]")
+GUINSOODB_BENCHMARK(TPCHSimpleAggr, "[startup]")
 TPCHStartup("SELECT SUM(l_extendedprice) FROM lineitem") NormalConfig() string
     VerifyResult(QueryResult *result) override {
 	if (!result->success) {
@@ -67,7 +67,7 @@ TPCHStartup("SELECT SUM(l_extendedprice) FROM lineitem") NormalConfig() string
 }
 FINISH_BENCHMARK(TPCHSimpleAggr)
 
-DUCKDB_BENCHMARK(TPCHQ1, "[startup]")
+GUINSOODB_BENCHMARK(TPCHQ1, "[startup]")
 TPCHStartup("PRAGMA tpch(1)") NormalConfig() string VerifyResult(QueryResult *result) override {
 	if (!result->success) {
 		return result->error;

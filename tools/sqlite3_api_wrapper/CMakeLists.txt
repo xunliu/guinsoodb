@@ -14,7 +14,7 @@ link_extension_libraries(sqlite3_api_wrapper_static)
 if(NOT WIN32)
   add_library(sqlite3_api_wrapper SHARED sqlite3_api_wrapper.cpp
                                          ${ALL_OBJECT_FILES})
-  target_link_libraries(sqlite3_api_wrapper guinsoodb ${DUCKDB_EXTRA_LINK_FLAGS})
+  target_link_libraries(sqlite3_api_wrapper guinsoodb ${GUINSOODB_EXTRA_LINK_FLAGS})
   link_threads(sqlite3_api_wrapper)
 
   link_extension_libraries(sqlite3_api_wrapper)

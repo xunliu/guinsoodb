@@ -8,7 +8,7 @@
 #include "parquet_statistics.hpp"
 
 #include "guinsoodb.hpp"
-#ifndef DUCKDB_AMALGAMATION
+#ifndef GUINSOODB_AMALGAMATION
 #include "guinsoodb/storage/statistics/string_statistics.hpp"
 #include "guinsoodb/storage/statistics/numeric_statistics.hpp"
 #include "guinsoodb/common/types/vector.hpp"
@@ -257,18 +257,18 @@ protected:
 	void PlainReference(shared_ptr<ByteBuffer> plain_data, Vector &result) override;
 };
 
-template <class DUCKDB_PHYSICAL_TYPE>
+template <class GUINSOODB_PHYSICAL_TYPE>
 struct DecimalParquetValueConversion {
 
-	static DUCKDB_PHYSICAL_TYPE DictRead(ByteBuffer &dict, uint32_t &offset, ColumnReader &reader) {
-		auto dict_ptr = (DUCKDB_PHYSICAL_TYPE *)dict.ptr;
+	static GUINSOODB_PHYSICAL_TYPE DictRead(ByteBuffer &dict, uint32_t &offset, ColumnReader &reader) {
+		auto dict_ptr = (GUINSOODB_PHYSICAL_TYPE *)dict.ptr;
 		return dict_ptr[offset];
 	}
 
-	static DUCKDB_PHYSICAL_TYPE PlainRead(ByteBuffer &plain_data, ColumnReader &reader) {
-		DUCKDB_PHYSICAL_TYPE res = 0;
+	static GUINSOODB_PHYSICAL_TYPE PlainRead(ByteBuffer &plain_data, ColumnReader &reader) {
+		GUINSOODB_PHYSICAL_TYPE res = 0;
 		auto byte_len = (idx_t)reader.Schema().type_length; /* sure, type length needs to be a signed int */
-		D_ASSERT(byte_len <= sizeof(DUCKDB_PHYSICAL_TYPE));
+		D_ASSERT(byte_len <= sizeof(GUINSOODB_PHYSICAL_TYPE));
 		plain_data.available(byte_len);
 		auto res_ptr = (uint8_t *)&res;
 
@@ -292,34 +292,34 @@ struct DecimalParquetValueConversion {
 	}
 };
 
-template <class DUCKDB_PHYSICAL_TYPE>
+template <class GUINSOODB_PHYSICAL_TYPE>
 class DecimalColumnReader
-    : public TemplatedColumnReader<DUCKDB_PHYSICAL_TYPE, DecimalParquetValueConversion<DUCKDB_PHYSICAL_TYPE>> {
+    : public TemplatedColumnReader<GUINSOODB_PHYSICAL_TYPE, DecimalParquetValueConversion<GUINSOODB_PHYSICAL_TYPE>> {
 
 public:
 	DecimalColumnReader(LogicalType type_p, const SchemaElement &schema_p, idx_t file_idx_p, idx_t max_define_p,
 	                    idx_t max_repeat_p)
-	    : TemplatedColumnReader<DUCKDB_PHYSICAL_TYPE, DecimalParquetValueConversion<DUCKDB_PHYSICAL_TYPE>>(
+	    : TemplatedColumnReader<GUINSOODB_PHYSICAL_TYPE, DecimalParquetValueConversion<GUINSOODB_PHYSICAL_TYPE>>(
 	          type_p, schema_p, file_idx_p, max_define_p, max_repeat_p) {};
 
 protected:
 	void Dictionary(shared_ptr<ByteBuffer> dictionary_data, idx_t num_entries) {
-		this->dict = make_shared<ResizeableBuffer>(num_entries * sizeof(DUCKDB_PHYSICAL_TYPE));
-		auto dict_ptr = (DUCKDB_PHYSICAL_TYPE *)this->dict->ptr;
+		this->dict = make_shared<ResizeableBuffer>(num_entries * sizeof(GUINSOODB_PHYSICAL_TYPE));
+		auto dict_ptr = (GUINSOODB_PHYSICAL_TYPE *)this->dict->ptr;
 		for (idx_t i = 0; i < num_entries; i++) {
-			dict_ptr[i] = DecimalParquetValueConversion<DUCKDB_PHYSICAL_TYPE>::PlainRead(*dictionary_data, *this);
+			dict_ptr[i] = DecimalParquetValueConversion<GUINSOODB_PHYSICAL_TYPE>::PlainRead(*dictionary_data, *this);
 		}
 	}
 };
 
-template <class PARQUET_PHYSICAL_TYPE, class DUCKDB_PHYSICAL_TYPE,
-          DUCKDB_PHYSICAL_TYPE (*FUNC)(const PARQUET_PHYSICAL_TYPE &input)>
+template <class PARQUET_PHYSICAL_TYPE, class GUINSOODB_PHYSICAL_TYPE,
+          GUINSOODB_PHYSICAL_TYPE (*FUNC)(const PARQUET_PHYSICAL_TYPE &input)>
 struct CallbackParquetValueConversion {
-	static DUCKDB_PHYSICAL_TYPE DictRead(ByteBuffer &dict, uint32_t &offset, ColumnReader &reader) {
-		return TemplatedParquetValueConversion<DUCKDB_PHYSICAL_TYPE>::DictRead(dict, offset, reader);
+	static GUINSOODB_PHYSICAL_TYPE DictRead(ByteBuffer &dict, uint32_t &offset, ColumnReader &reader) {
+		return TemplatedParquetValueConversion<GUINSOODB_PHYSICAL_TYPE>::DictRead(dict, offset, reader);
 	}
 
-	static DUCKDB_PHYSICAL_TYPE PlainRead(ByteBuffer &plain_data, ColumnReader &reader) {
+	static GUINSOODB_PHYSICAL_TYPE PlainRead(ByteBuffer &plain_data, ColumnReader &reader) {
 		return FUNC(plain_data.read<PARQUET_PHYSICAL_TYPE>());
 	}
 
@@ -328,23 +328,23 @@ struct CallbackParquetValueConversion {
 	}
 };
 
-template <class PARQUET_PHYSICAL_TYPE, class DUCKDB_PHYSICAL_TYPE,
-          DUCKDB_PHYSICAL_TYPE (*FUNC)(const PARQUET_PHYSICAL_TYPE &input)>
+template <class PARQUET_PHYSICAL_TYPE, class GUINSOODB_PHYSICAL_TYPE,
+          GUINSOODB_PHYSICAL_TYPE (*FUNC)(const PARQUET_PHYSICAL_TYPE &input)>
 class CallbackColumnReader
-    : public TemplatedColumnReader<DUCKDB_PHYSICAL_TYPE,
-                                   CallbackParquetValueConversion<PARQUET_PHYSICAL_TYPE, DUCKDB_PHYSICAL_TYPE, FUNC>> {
+    : public TemplatedColumnReader<GUINSOODB_PHYSICAL_TYPE,
+                                   CallbackParquetValueConversion<PARQUET_PHYSICAL_TYPE, GUINSOODB_PHYSICAL_TYPE, FUNC>> {
 
 public:
 	CallbackColumnReader(LogicalType type_p, const SchemaElement &schema_p, idx_t file_idx_p, idx_t max_define_p,
 	                     idx_t max_repeat_p)
-	    : TemplatedColumnReader<DUCKDB_PHYSICAL_TYPE,
-	                            CallbackParquetValueConversion<PARQUET_PHYSICAL_TYPE, DUCKDB_PHYSICAL_TYPE, FUNC>>(
+	    : TemplatedColumnReader<GUINSOODB_PHYSICAL_TYPE,
+	                            CallbackParquetValueConversion<PARQUET_PHYSICAL_TYPE, GUINSOODB_PHYSICAL_TYPE, FUNC>>(
 	          type_p, schema_p, file_idx_p, max_define_p, max_repeat_p) {};
 
 protected:
 	void Dictionary(shared_ptr<ByteBuffer> dictionary_data, idx_t num_entries) {
-		this->dict = make_shared<ResizeableBuffer>(num_entries * sizeof(DUCKDB_PHYSICAL_TYPE));
-		auto dict_ptr = (DUCKDB_PHYSICAL_TYPE *)this->dict->ptr;
+		this->dict = make_shared<ResizeableBuffer>(num_entries * sizeof(GUINSOODB_PHYSICAL_TYPE));
+		auto dict_ptr = (GUINSOODB_PHYSICAL_TYPE *)this->dict->ptr;
 		for (idx_t i = 0; i < num_entries; i++) {
 			dict_ptr[i] = FUNC(dictionary_data->read<PARQUET_PHYSICAL_TYPE>());
 		}

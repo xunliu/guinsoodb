@@ -90,10 +90,10 @@ public:
 	void Print();
 
 	//! Flatten the vector, removing any compression and turning it into a FLAT_VECTOR
-	DUCKDB_API void Normalify(idx_t count);
-	DUCKDB_API void Normalify(const SelectionVector &sel, idx_t count);
+	GUINSOODB_API void Normalify(idx_t count);
+	GUINSOODB_API void Normalify(const SelectionVector &sel, idx_t count);
 	//! Obtains a selection vector and data pointer through which the data of this vector can be accessed
-	DUCKDB_API void Orrify(idx_t count, VectorData &data);
+	GUINSOODB_API void Orrify(idx_t count, VectorData &data);
 
 	//! Turn the vector into a sequence vector
 	void Sequence(int64_t start, int64_t increment);

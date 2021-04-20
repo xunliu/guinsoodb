@@ -4,7 +4,7 @@
 #include "thrift/transport/TBufferTransports.h"
 
 #include "guinsoodb.hpp"
-#ifndef DUCKDB_AMALGAMATION
+#ifndef GUINSOODB_AMALGAMATION
 #include "guinsoodb/common/file_system.hpp"
 #endif
 

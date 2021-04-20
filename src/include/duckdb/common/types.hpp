@@ -266,10 +266,10 @@ enum class LogicalTypeId : uint8_t {
 };
 
 struct LogicalType {
-	DUCKDB_API LogicalType();
-	DUCKDB_API LogicalType(LogicalTypeId id); // NOLINT: Allow implicit conversion from `LogicalTypeId`
-	DUCKDB_API LogicalType(LogicalTypeId id, string collation);
-	DUCKDB_API LogicalType(LogicalTypeId id, uint8_t width, uint8_t scale);
+	GUINSOODB_API LogicalType();
+	GUINSOODB_API LogicalType(LogicalTypeId id); // NOLINT: Allow implicit conversion from `LogicalTypeId`
+	GUINSOODB_API LogicalType(LogicalTypeId id, string collation);
+	GUINSOODB_API LogicalType(LogicalTypeId id, uint8_t width, uint8_t scale);
 	LogicalType(LogicalTypeId id, child_list_t<LogicalType> child_types);
 	LogicalType(LogicalTypeId id, uint8_t width, uint8_t scale, string collation,
 	            child_list_t<LogicalType> child_types);
@@ -301,22 +301,22 @@ struct LogicalType {
 	}
 
 	//! Serializes a LogicalType to a stand-alone binary blob
-	DUCKDB_API void Serialize(Serializer &serializer) const;
+	GUINSOODB_API void Serialize(Serializer &serializer) const;
 	//! Deserializes a blob back into an LogicalType
-	DUCKDB_API static LogicalType Deserialize(Deserializer &source);
+	GUINSOODB_API static LogicalType Deserialize(Deserializer &source);
 
-	DUCKDB_API string ToString() const;
-	DUCKDB_API bool IsIntegral() const;
-	DUCKDB_API bool IsNumeric() const;
-	DUCKDB_API bool IsMoreGenericThan(LogicalType &other) const;
-	DUCKDB_API hash_t Hash() const;
+	GUINSOODB_API string ToString() const;
+	GUINSOODB_API bool IsIntegral() const;
+	GUINSOODB_API bool IsNumeric() const;
+	GUINSOODB_API bool IsMoreGenericThan(LogicalType &other) const;
+	GUINSOODB_API hash_t Hash() const;
 
-	DUCKDB_API static LogicalType MaxLogicalType(const LogicalType &left, const LogicalType &right);
+	GUINSOODB_API static LogicalType MaxLogicalType(const LogicalType &left, const LogicalType &right);
 
 	//! Gets the decimal properties of a numeric type. Fails if the type is not numeric.
-	DUCKDB_API bool GetDecimalProperties(uint8_t &width, uint8_t &scale) const;
+	GUINSOODB_API bool GetDecimalProperties(uint8_t &width, uint8_t &scale) const;
 
-	DUCKDB_API void Verify() const;
+	GUINSOODB_API void Verify() const;
 
 private:
 	LogicalTypeId id_;
@@ -331,41 +331,41 @@ private:
 	PhysicalType GetInternalType();
 
 public:
-	DUCKDB_API static const LogicalType SQLNULL;
-	DUCKDB_API static const LogicalType BOOLEAN;
-	DUCKDB_API static const LogicalType TINYINT;
-	DUCKDB_API static const LogicalType UTINYINT;
-	DUCKDB_API static const LogicalType SMALLINT;
-	DUCKDB_API static const LogicalType USMALLINT;
-	DUCKDB_API static const LogicalType INTEGER;
-	DUCKDB_API static const LogicalType UINTEGER;
-	DUCKDB_API static const LogicalType BIGINT;
-	DUCKDB_API static const LogicalType UBIGINT;
-	DUCKDB_API static const LogicalType FLOAT;
-	DUCKDB_API static const LogicalType DOUBLE;
-	DUCKDB_API static const LogicalType DECIMAL;
-	DUCKDB_API static const LogicalType DATE;
-	DUCKDB_API static const LogicalType TIMESTAMP;
-	DUCKDB_API static const LogicalType TIME;
-	DUCKDB_API static const LogicalType VARCHAR;
-	DUCKDB_API static const LogicalType STRUCT;
-	DUCKDB_API static const LogicalType MAP;
-	DUCKDB_API static const LogicalType LIST;
-	DUCKDB_API static const LogicalType ANY;
-	DUCKDB_API static const LogicalType BLOB;
-	DUCKDB_API static const LogicalType INTERVAL;
-	DUCKDB_API static const LogicalType HUGEINT;
-	DUCKDB_API static const LogicalType HASH;
-	DUCKDB_API static const LogicalType POINTER;
-	DUCKDB_API static const LogicalType TABLE;
-	DUCKDB_API static const LogicalType INVALID;
+	GUINSOODB_API static const LogicalType SQLNULL;
+	GUINSOODB_API static const LogicalType BOOLEAN;
+	GUINSOODB_API static const LogicalType TINYINT;
+	GUINSOODB_API static const LogicalType UTINYINT;
+	GUINSOODB_API static const LogicalType SMALLINT;
+	GUINSOODB_API static const LogicalType USMALLINT;
+	GUINSOODB_API static const LogicalType INTEGER;
+	GUINSOODB_API static const LogicalType UINTEGER;
+	GUINSOODB_API static const LogicalType BIGINT;
+	GUINSOODB_API static const LogicalType UBIGINT;
+	GUINSOODB_API static const LogicalType FLOAT;
+	GUINSOODB_API static const LogicalType DOUBLE;
+	GUINSOODB_API static const LogicalType DECIMAL;
+	GUINSOODB_API static const LogicalType DATE;
+	GUINSOODB_API static const LogicalType TIMESTAMP;
+	GUINSOODB_API static const LogicalType TIME;
+	GUINSOODB_API static const LogicalType VARCHAR;
+	GUINSOODB_API static const LogicalType STRUCT;
+	GUINSOODB_API static const LogicalType MAP;
+	GUINSOODB_API static const LogicalType LIST;
+	GUINSOODB_API static const LogicalType ANY;
+	GUINSOODB_API static const LogicalType BLOB;
+	GUINSOODB_API static const LogicalType INTERVAL;
+	GUINSOODB_API static const LogicalType HUGEINT;
+	GUINSOODB_API static const LogicalType HASH;
+	GUINSOODB_API static const LogicalType POINTER;
+	GUINSOODB_API static const LogicalType TABLE;
+	GUINSOODB_API static const LogicalType INVALID;
 
 	//! A list of all NUMERIC types (integral and floating point types)
-	DUCKDB_API static const vector<LogicalType> NUMERIC;
+	GUINSOODB_API static const vector<LogicalType> NUMERIC;
 	//! A list of all INTEGRAL types
-	DUCKDB_API static const vector<LogicalType> INTEGRAL;
+	GUINSOODB_API static const vector<LogicalType> INTEGRAL;
 	//! A list of ALL SQL types
-	DUCKDB_API static const vector<LogicalType> ALL_TYPES;
+	GUINSOODB_API static const vector<LogicalType> ALL_TYPES;
 };
 
 string LogicalTypeIdToString(LogicalTypeId type);

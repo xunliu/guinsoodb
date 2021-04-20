@@ -71,11 +71,11 @@ class OperatorProfiler {
 	friend class QueryProfiler;
 
 public:
-	DUCKDB_API explicit OperatorProfiler(bool enabled);
+	GUINSOODB_API explicit OperatorProfiler(bool enabled);
 
-	DUCKDB_API void StartOperator(PhysicalOperator *phys_op);
-	DUCKDB_API void EndOperator(DataChunk *chunk);
-	DUCKDB_API void Flush(PhysicalOperator *phys_op, ExpressionExecutor *expression_executor);
+	GUINSOODB_API void StartOperator(PhysicalOperator *phys_op);
+	GUINSOODB_API void EndOperator(DataChunk *chunk);
+	GUINSOODB_API void Flush(PhysicalOperator *phys_op, ExpressionExecutor *expression_executor);
 
 	~OperatorProfiler() {
 	}
@@ -110,24 +110,24 @@ private:
 	void Render(const TreeNode &node, std::ostream &str) const;
 
 public:
-	DUCKDB_API QueryProfiler()
+	GUINSOODB_API QueryProfiler()
 	    : automatic_print_format(ProfilerPrintFormat::NONE), enabled(false), detailed_enabled(false), running(false) {
 	}
 
-	DUCKDB_API void Enable() {
+	GUINSOODB_API void Enable() {
 		enabled = true;
 		detailed_enabled = false;
 	}
 
-	DUCKDB_API void DetailedEnable() {
+	GUINSOODB_API void DetailedEnable() {
 		detailed_enabled = true;
 	}
 
-	DUCKDB_API void Disable() {
+	GUINSOODB_API void Disable() {
 		enabled = false;
 	}
 
-	DUCKDB_API bool IsEnabled() {
+	GUINSOODB_API bool IsEnabled() {
 		return enabled;
 	}
 
@@ -135,23 +135,23 @@ public:
 		return detailed_enabled;
 	}
 
-	DUCKDB_API void StartQuery(string query);
-	DUCKDB_API void EndQuery();
+	GUINSOODB_API void StartQuery(string query);
+	GUINSOODB_API void EndQuery();
 
 	//! Adds the timings gathered by an OperatorProfiler to this query profiler
-	DUCKDB_API void Flush(OperatorProfiler &profiler);
+	GUINSOODB_API void Flush(OperatorProfiler &profiler);
 
-	DUCKDB_API void StartPhase(string phase);
-	DUCKDB_API void EndPhase();
+	GUINSOODB_API void StartPhase(string phase);
+	GUINSOODB_API void EndPhase();
 
-	DUCKDB_API void Initialize(PhysicalOperator *root);
+	GUINSOODB_API void Initialize(PhysicalOperator *root);
 
-	DUCKDB_API string ToString(bool print_optimizer_output = false) const;
-	DUCKDB_API void ToStream(std::ostream &str, bool print_optimizer_output = false) const;
-	DUCKDB_API void Print();
+	GUINSOODB_API string ToString(bool print_optimizer_output = false) const;
+	GUINSOODB_API void ToStream(std::ostream &str, bool print_optimizer_output = false) const;
+	GUINSOODB_API void Print();
 
-	DUCKDB_API string ToJSON() const;
-	DUCKDB_API void WriteToFile(const char *path, string &info) const;
+	GUINSOODB_API string ToJSON() const;
+	GUINSOODB_API void WriteToFile(const char *path, string &info) const;
 
 	//! The format to automatically print query profiling information in (default: disabled)
 	ProfilerPrintFormat automatic_print_format;
