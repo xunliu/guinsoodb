@@ -1,3 +1,0 @@
-python3 ../upload-s3.py rstats/bin/macosx/contrib/4.0 guinsoodb_*.tgz PACKAGES*
-python3 ../upload-s3.py rstats guinsoodb_*.tgz
-python3 ../../scripts/asset-upload.py guinsoodb_r_osx.tgz=guinsoodb_*.tgz
