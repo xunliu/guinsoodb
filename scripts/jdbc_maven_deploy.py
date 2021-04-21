@@ -32,7 +32,7 @@ staging_dir = tempfile.mkdtemp()
 release_tag = sys.argv[1]
 release_version = version_regex.search(release_tag).group(1)
 
-release_prefix = 'https://github.com/cwida/guinsoodb/releases/download/%s' % release_tag
+release_prefix = 'https://github.com/ciusji/guinsoodb/releases/download/%s' % release_tag
 
 binary_jar = '%s/guinsoodb_jdbc-%s.jar' % (staging_dir, release_version)
 pom = '%s/guinsoodb_jdbc-%s.pom' % (staging_dir, release_version)
@@ -77,18 +77,9 @@ pom_template = """
     </license>
   </licenses>
 
-  <developers>
-    <developer>
-      <name>Hannes Muehleisen</name>
-      <email>hannes@cwi.nl</email>
-      <organization>CWI</organization>
-      <organizationUrl>https://www.cwi.nl</organizationUrl>
-    </developer>
-  </developers>
-
   <scm>
-    <connection>scm:git:git://github.com/cwida/guinsoodb.git</connection>
-    <developerConnection>scm:git:ssh://github.com:cwida/guinsoodb.git</developerConnection>
+    <connection>scm:git:git://github.com/ciusji/guinsoodb.git</connection>
+    <developerConnection>scm:git:ssh://github.com:ciusji/guinsoodb.git</developerConnection>
     <url>http://github.com/cwida/guinsoodb/tree/master</url>
   </scm>
 </project>
@@ -100,7 +91,7 @@ pom_path = pathlib.Path(pom)
 pom_path.write_text(pom_template.replace("${VERSION}", release_version))
 
 # download sources to create separate sources and javadoc JARs, this is required by maven central
-source_zip_url = 'https://github.com/cwida/guinsoodb/archive/%s.zip' % release_tag
+source_zip_url = 'https://github.com/ciusji/guinsoodb/archive/%s.zip' % release_tag
 source_zip_file = tempfile.mkstemp()[1]
 source_zip_dir = tempfile.mkdtemp()
 # print(source_zip_url)
@@ -123,20 +114,6 @@ exec("java -cp %s org.guinsoodb.test.TestGuinsooDBJDBC" % binary_jar)
 # now sign and upload everything
 # for this to work, you must have entry in ~/.m2/settings.xml:
 
-# <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-# 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-# 	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
-# 	https://maven.apache.org/xsd/settings-1.0.0.xsd">
-# 	<servers>
-# 		<server>
-# 			<id>ossrh</id>
-# 			<username>hfmuehleisen</username> <!-- Sonatype OSSRH JIRA user/pw -->
-# 			<password>[...]</password>
-# 		</server>
-# 	</servers>
-# </settings>
-
-#exit(0)
 
 print("JARs created, uploading (this can take a while!). When done, visit https://oss.sonatype.org")
 deploy_cmd_prefix = 'mvn gpg:sign-and-deploy-file -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ -DrepositoryId=ossrh'
